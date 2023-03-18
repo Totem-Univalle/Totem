@@ -1,10 +1,11 @@
 import React from 'react'
 import './sidebar.css'
 /*import icons */
-import {FcAdvertising} from 'react-icons/fc'
+import {RiContactsBookFill} from 'react-icons/ri'
 import {MdEditLocationAlt} from 'react-icons/md'
 import {HiTemplate} from 'react-icons/hi'
 import {MdContactMail} from 'react-icons/md'
+import {BsQuestionCircle} from 'react-icons/bs'
 
 const Sidebar = () => {
   return (
@@ -16,7 +17,7 @@ const Sidebar = () => {
 
       <div className="menuDiv">
         <h3 className="divTitle">
-          QUICK MENU
+          MENU 
         </h3>
         <ul className="menuList grid">
 
@@ -40,7 +41,7 @@ const Sidebar = () => {
 
           <li className="listItem">
             <a href="#" className="menuLink" flex>
-              <FcAdvertising className='icon'/>
+              <RiContactsBookFill className='icon'/>
               <span className="smallText">
                 Publicidad
               </span>
@@ -52,7 +53,7 @@ const Sidebar = () => {
       
       <div className="settingDiv">
         <h3 className="divTitle">
-          SETTING
+          AJUSTES
         </h3>
         <ul className="menuList grid">
 
@@ -66,6 +67,18 @@ const Sidebar = () => {
           </li>
 
         </ul>
+      </div>
+
+      <div className="sideBardCard">
+        <BsQuestionCircle className="icon"/>
+        <div className="cardContent">
+          <div className="circle1"></div>
+          <div className="circle2"></div>
+
+          <h3>Help Center</h3>
+          <p>Please contact us</p>
+          <button className='btn'>Go to help</button>
+        </div>
       </div>
     </div>
   )
