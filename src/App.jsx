@@ -9,8 +9,8 @@ function App() {
   return (
     
     <div className="App">
-    
-      <Carrusel  images={pics}/>
+       <Card/>
+      {/* <Carrusel  images={pics}/> */}
     </div>
   )
 }

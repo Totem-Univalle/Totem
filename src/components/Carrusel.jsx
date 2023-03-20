@@ -4,7 +4,7 @@ import "../style/Carrusel.css";
 
 function Carrusel({ images }) {
     const [current, setCurrent] = useState(0);
-    const [autoPlay, setAutoPlay] = useState(null);
+    
     useEffect(()=>{
         setTimeout(() => {
             slideRight()
