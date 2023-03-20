@@ -1,0 +1,10 @@
+.panel{
+    background: #1e242e;
+    padding: 20px;
+    border-radius: 40px;
+    height: 100%;
+    
+    display: flex;
+    display: flex;
+  flex-direction: column;
+}
