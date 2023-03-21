@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import "../style/Carrusel.css";
+import "../style/card.scss";
 
 function Carrusel({ images }) {
     const [current, setCurrent] = useState(0);

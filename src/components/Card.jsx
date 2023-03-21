@@ -32,9 +32,29 @@ export function Card() {
         <table>
           <tr>
             <td rowspan="4" align="center">
-              <div className={styles.map_wrapper}>
+              {/* <div className={styles.map_wrapper}>
                 <img className={styles.map} src="/images/map.png"></img>
+              </div> */}
+                <div class="card">
+                <div class="img-avatar2">
+                  <div>
+                  
+                  <h3> <img className={styles.info} src="/images/location.png"></img> ¿Como llegar?</h3>
+                  </div>
+                  
+                </div>
+                <div class="card-text">
+                  <div class="title-total">
+                    
+
+                    <div class="desc">
+                    <img className={styles.map} src="/images/map.png"></img>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* kjsdklf */}
             </td>
             <td>
               <div height="50px" className={styles.date2}>
@@ -55,21 +75,35 @@ export function Card() {
                 ></img>
                 21 °C
               </div> */}
-             
+
               {/* o */}
             </td>
           </tr>
           <tr>
             <td rowSpan={2}>
-              <div className={styles.description}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum
+              <div class="card">
+                <div class="img-avatar">
+                  <img className={styles.info} src="/images/info.png"></img>
+                </div>
+                <div class="card-text">
+                  <div class="title-total">
+                    <h2>Morgan Sweeney</h2>
+
+                    <div class="desc">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              
             </td>
           </tr>
           <tr></tr>
@@ -83,18 +117,7 @@ export function Card() {
         </table>
       </div>
 
-      {/*<img className={styles.logo} src="/images/logo.png"></img>}
-      <div className={styles.title} align="center">
-        <strong>
-        Plaza principal de Tiquipaya
-        </strong>
-      </div>
-      <div className={styles.weather_wrapper}></div>
-
-      <div align="center">
-        <input type="text" placeholder="Buscar..." className={styles.search} />
-      </div>
-      */}
+      
     </div>
   );
 }
