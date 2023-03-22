@@ -8,9 +8,9 @@ export function Card() {
   return (
     <div className={styles.panel}>
       <div className={styles.topBar}>
-        <table>
+        <table  >
           <tbody>
-            <tr>
+            <tr >
               <td align="left">
                 <img className={styles.logo} src="/images/logo.png"></img>
               </td>

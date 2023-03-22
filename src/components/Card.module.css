@@ -15,11 +15,7 @@
   background-size: contain;
   height: 90px;
   background-repeat: no-repeat;
-  
-  
-  
-
-  
+  margin-left: 40px;  
   padding-left: 55px;
   padding-top:  5px;
 } 
@@ -27,21 +23,19 @@
   background-image: url(../images/calendar.png);
   background-size: contain;
   height: 100px;
+  width: 200px;
   
   background-repeat: no-repeat;
 
-  
-
-  
-  padding-left: 15px;
-  padding-top: 5px;
+  padding-left: 5px;
+  padding-top: 0.5px;
 } 
 .weather{
   height: 20px;
   margin-right: 110px;
   margin-top: 40px;
   
-  color: #797979;
+  color: #333131;
 }
 
 .carrusel {
@@ -64,7 +58,10 @@
 
 .search_wrapper{
   width: 100%;
+  
 }
+
+
 
 .ilistration1{
   width: 30vh;
@@ -88,21 +85,21 @@
 
 
 .image{
-  width: 110%;
+  width: 90%;
   
 }
 
 .mic{
   
-  width:60px;
-  height: 60px;
-  margin-right: -40px;
+  width:80px;
+  height: 80px;
+  margin-right: -90px;
   border-radius: 50%;
   background-color: #bebebe;
   box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.281);
   -webkit-box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.322);
   -moz-box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.192);
-  
+  margin-left: 50px;;
 }
 
 .mic_icon{
@@ -112,7 +109,8 @@
 }
 
 .logo {
-  width: 80%;
+  width: 70%;
+  margin-left: 20px;
   
 }
 .title{
