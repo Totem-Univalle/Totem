@@ -14,3 +14,5 @@ export function Advertising(props) {
       </button>
   </div>;
 }
+
+export default Advertising
