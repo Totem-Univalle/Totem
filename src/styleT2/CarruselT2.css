@@ -1,0 +1,45 @@
+
+.carruselT2{
+    
+    height: 750px;
+    width:400px;
+    max-width: 800px;
+    margin-left: 15px;
+}
+
+.carrusel_wrapperT2{
+   position: relative;
+   width: 100%;
+   height: 100%;
+}
+
+.carrusel_cardT2{
+    display: flex;
+    flex: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.281);
+-webkit-box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.322);
+-moz-box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.192);
+
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: 0.5s ease-in-out;
+}
+
+.carrusel_card_activeT2{
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: visible;
+}
+
+.card_imageT2{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}

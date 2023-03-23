@@ -1,0 +1,22 @@
+.containerD {
+    width: 200px;
+    height: 40px;
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+    background-color:#001220;
+    border-radius: 10px;
+    padding-top: 10px;
+    margin-left: 660px;
+    margin-top: 30px;
+   
+}
+.contadorD {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    color: aliceblue;
+}

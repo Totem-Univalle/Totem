@@ -1,0 +1,118 @@
+.cardT2 {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.5);
+ 
+  width: 50vh;
+  max-width: 50vh;
+  height: 40vw;
+  
+  max-height: 40vw;
+  display: flex;
+  flex-direction: row;
+  border-radius: 25px;
+  position: relative;
+}
+
+.card2T2 {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.5);
+ 
+  width: 60vh;
+  height: 15vw;
+
+  max-height: 35vw;
+ 
+  
+  display: flex;
+  flex-direction: row;
+  border-radius: 25px;
+  position: relative;
+
+  margin-top: 10px;
+  margin-left: 20px;
+  
+}
+
+
+.cardT2 .descT2 {
+  text-align: justify;
+  font-size: 13px;
+  
+}
+
+.card2T2 .descT2 {
+  text-align: justify;
+  font-size: 13px;
+  margin: 15px;
+
+
+  width: fit-content;
+  max-width: fit-content;
+  max-height: fit-content;
+
+}
+
+.imgavatarT2 {
+  width: 8vh;
+  height: 1vw;
+  position: absolute;
+  border-radius: 100%;
+  border: 6px solid white;
+  background-color: #fff;
+  
+  left: -25px;
+  padding-top: 20px;
+  
+}
+
+
+.imgavatar2T2 {
+  width: 220px;
+  height: 4.5vw;
+  position: absolute;
+  border-radius: 50px;
+  border: 6px solid white;
+  background-image: linear-gradient(-60deg, #f5dcaf 0%, #FA7268 100%);
+  top: -25px;
+  left: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+h3{
+  color: #fff;
+}
+
+.titletotalT2 {
+  padding-top: 2em;
+}
+
+path {
+  fill: white;
+}
+
+use{
+  
+  animation:move-forever 2s linear infinite;
+  &:nth-child(2){ animation-duration:2.5s; animation-delay:-1.5s; }
+  &:nth-child(1){ animation-duration:5s}
+  
+}
+
+@keyframes move-forever{
+   0%{transform: translate(-2px , 0)}
+ 100%{transform: translate( 0px , 0)} 
+}
+
+
+/* layout only*/
+
+svg{
+  margin-top: 37px;
+  margin-left: -18px;
+  width:100vw;
+  height:26vh
+  
+}

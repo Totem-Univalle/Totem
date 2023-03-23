@@ -1,0 +1,171 @@
+
+.panel {
+
+ background-image: url(../images/b.svg);
+ background-color: #ffffff;
+ background-repeat: no-repeat;
+ background-size: cover;
+ width: 100vh;
+ height: 100vw;
+ position: absolute;
+ transform: rotate(-90deg);
+}
+.date2 {
+ background-image: url(../images/cloud.png);
+ background-size: contain;
+ height: 90px;
+ background-repeat: no-repeat;
+ margin-left: 40px;  
+ padding-left: 55px;
+ padding-top:  5px;
+} 
+.date1 {
+ background-image: url(../images/calendar.png);
+ background-size: contain;
+ height: 100px;
+ width: 200px;
+ 
+ background-repeat: no-repeat;
+
+ padding-left: 5px;
+ padding-top: 0.5px;
+} 
+.weather{
+ height: 20px;
+ margin-right: 110px;
+ margin-top: 40px;
+ text-decoration-style: wavy;
+ 
+ color: #333131;
+}
+
+.carrusel {
+ margin-left: 100px;
+}
+.topBar{
+ background-color: rgba(94, 94, 94, 0);
+ color: rgb(255, 255, 255);
+ font-size: 30;
+ text-align: center;
+ margin-top: 30px;
+ margin-bottom: 30px;
+ margin-left: 40px;
+ margin-right: 40px;
+ border-radius: 20px;
+ height: 10%;
+ 
+ 
+}
+
+.search_wrapper{
+ width: 100%;
+ 
+}
+
+
+
+.ilistration1{
+ width: 30vh;
+ margin-bottom: -40px;
+ transform: scaleX(-1);
+}
+
+.middleBar{
+ background-color: rgba(255, 255, 255, 0.438);
+
+
+ text-align: center;
+ margin-top: 60px;
+ margin-bottom: 30px;
+ margin-left: 20px;
+ margin-right: 20px;
+ border-radius: 20px;
+ height: 70%;
+ padding-top: 80px;
+ 
+}
+
+
+.image{
+ width: 90%;
+ 
+}
+
+.mic{
+ 
+ width:80px;
+ height: 80px;
+ margin-right: -90px;
+ border-radius: 50%;
+ background-color: #bebebe;
+ box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.281);
+ -webkit-box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.322);
+ -moz-box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.192);
+ margin-left: 50px;;
+}
+
+.mic_icon{
+ width: 100%;
+ border-radius: 50%;
+
+}
+
+.logo {
+ width: 70%;
+ margin-left: 20px;
+ 
+}
+.title{
+ width: 350px;
+}
+
+.info_wrapper{
+  margin-top:70px;
+
+}
+
+
+
+.info{
+ width: 30px;
+}
+
+.map {
+ height: 32vw;
+ max-height: 32vw;
+ width: 46vh;
+ margin-right: 10px;
+}
+
+.image_wrapper {
+ vertical-align: top;
+}
+
+
+table {
+ width: 100%;
+
+ max-height: 100%;
+}
+
+
+
+.search {
+ padding: 10px;
+ width: 95%;
+ font-size: 14px;
+ border-width: 1px;
+ border-color: #e4e4e4;
+ background-color: #FFFFFF;
+ color: #505050;
+ border-style: solid;
+ border-radius: 27px;
+ box-shadow: -6px 4px 9px rgba(66,66,66,.29);
+ text-shadow: 0px 0px 5px rgba(66,66,66,.0);
+
+}
+
+
+
+
+
