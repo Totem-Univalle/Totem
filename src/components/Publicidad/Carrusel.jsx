@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../style/Carrusel.css";
+import "/src/style/Carrusel.css";
 
 function Carrusel({ images }) {
     const [current, setCurrent] = useState(0);
@@ -14,6 +14,7 @@ function Carrusel({ images }) {
         setCurrent(current == images.length - 1 ? 0: current + 1);
      }
   return (
+
     <div className="carrusel">
       <div className="carrusel_wrapper_publicidad">
         {images.map((image, index) => {

@@ -3,9 +3,10 @@
 background-repeat: no-repeat;
   background-size: cover;
   width: 100vh !important;
-  height: 100vw !important;
+  height: 90vw !important;
   position: absolute;
   transform: rotate(-90deg);
+  margin-right: -180px;
 }
 
 .carrusel_wrapper_publicidad{
