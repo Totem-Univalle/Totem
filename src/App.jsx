@@ -6,6 +6,7 @@ import Carrusel from './components/Publicidad/Carrusel'
 import {pics} from './components/Publicidad/Data'
 import { Reloj } from './components/Publicidad/Reloj'
 import { Fecha } from './components/Publicidad/Fecha'
+import { Clima } from './components/Publicidad/Clima'
 
 
 
@@ -16,6 +17,7 @@ function App() {
     <div className="App">
       <div><Reloj></Reloj></div>
       <Fecha></Fecha>
+      <Clima></Clima>
       <Carrusel  images={pics}/>
     </div>
   )

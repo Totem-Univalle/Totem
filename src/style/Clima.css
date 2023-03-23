@@ -1,0 +1,24 @@
+.container_Clima {
+    width: 200px;
+    height: 50px;
+    position: absolute;
+    transform: translate(-50, -50%);
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+    padding-top: 13px;
+    transform: rotate(-90deg);
+    margin-left: -1664px;
+    margin-top: 600px;
+    box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.062);
+-webkit-box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.13);
+-moz-box-shadow: -14px 16px 21px 3px rgba(0, 0, 0, 0.103);
+}
+.contador_Clima {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 10px;
+    color: black;
+}
