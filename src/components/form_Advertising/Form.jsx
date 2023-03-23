@@ -19,7 +19,7 @@ const Form = () => {
     // Abre el explorador de archivos cuando el usuario hace clic en el dropzone
     inputRef.current.click();
   }
-
+  //evento de subida de imagen
   function handleImageUpload(event) {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -30,7 +30,7 @@ const Form = () => {
 
     reader.readAsDataURL(file);
   }
-
+  //eventos de dropzone
   function handleDropzoneHover(event) {
     event.preventDefault();
     dropzoneRef.current.style.cursor = "pointer";

@@ -32,9 +32,12 @@ export function Modal({state, changeState}) {
 
 export default Modal;
 
+//Componentes pequeños con styled components
+
 const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
+  overflow: scroll;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -49,9 +52,10 @@ const Overlay = styled.div`
 const ModalContainer = styled.div`
   width: 500px;
   height: 800px;
+  z-index: 3;
   background: #ffff;
   position: relative;
-  border-radius: 5px;
+  border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 20px;
 `;
