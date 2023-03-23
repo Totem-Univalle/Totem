@@ -1,9 +1,8 @@
 import styles from "./CardT2.module.css";
-import styles2 from "../styleT2/cardT2.scss?inline";
 
 export function MapT2(){
     return(
-        <div className={styles2.cardT2}>
+        <div className="cardT2">
                   <div className="img-avatar2T2">
                     <div>
                       <h3>
@@ -16,9 +15,9 @@ export function MapT2(){
                       </h3>
                     </div>
                   </div>
-                  <div className={styles2.cardtextT2}>
-                    <div className={styles2.titletotalT2}>
-                      <div className={styles2.descT2}>
+                  <div className="card-textT2">
+                    <div className="title-totalT2">
+                      <div className="descT2">
                         <img className={styles.map} src="/images/map.png"></img>
                       </div>
                     </div>
