@@ -5,7 +5,7 @@ import Modal from '../../form_Advertising/FormAdd'
 const Activity = () => {
   return (
     <div >
-      <Modal/>
+      <AdvertisingDisplay/>
     </div>
   )
 }
