@@ -1,11 +1,11 @@
 import React from 'react'
 import './activity.css'
 import AdvertisingDisplay from '../../Advertising/Adversising_Display'
-import Modal from '../../form_Advertising/FormAdd'
+import AdminRegistrationForm from '../../Admin_Form/AdminForm'
 const Activity = () => {
   return (
     <div >
-      <AdvertisingDisplay/>
+        <AdminRegistrationForm></AdminRegistrationForm>
     </div>
   )
 }
