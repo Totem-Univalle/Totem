@@ -19,6 +19,20 @@
   --smallestFontSize: 0.75rem;
 }
 
+
+.mainContent{
+    width: 82%;
+    height: 100%;
+    padding: 2rem;
+    overflow: auto;
+
+    .botton{
+        margin-top: 2rem;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+}
+
 .sideBar{
     background: var(--whiteColor);
     box-shadow: 1px 0px 4px var(--greyText);

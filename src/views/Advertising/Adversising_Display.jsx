@@ -1,6 +1,6 @@
 import "./styleCard.css";
 import Advertising from "./Advertising";
-import Modal from "../form_Advertising/FormAdd";
+import Modal from "./form_Advertising/FormAdd";
 import React, { useState } from "react";
 export function AdvertisingDisplay(props) {
   const [state, changeModalState] = useState(false);
