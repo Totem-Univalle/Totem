@@ -1,7 +1,7 @@
 import React from 'react'
 import './activity.css'
 import AdvertisingDisplay from '../../Advertising/Adversising_Display'
-import AdminRegistrationForm from '../../Admin_Form/AdminForm'
+import AdminRegistrationForm from '../../Totem_Form/TotemForm'
 const Activity = () => {
   return (
     <div >
