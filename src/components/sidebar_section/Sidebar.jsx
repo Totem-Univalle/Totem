@@ -6,7 +6,6 @@ import { HiTemplate } from "react-icons/hi";
 import { MdContactMail } from "react-icons/md";
 import { BsQuestionCircle } from "react-icons/bs";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import AdvertisingDisplay from "../../views/Advertising/Adversising_Display";
 import Routing from "../routes/routing";
 
 const navegation = [
@@ -88,7 +87,7 @@ const Sidebar = () => {
 
             <h3>Help Center</h3>
             <p>Please contact us</p>
-            <button className="btn">Go to help</button>
+            <button className="btn ; background">Go to help</button>
           </div>
         </div>
       </div>
