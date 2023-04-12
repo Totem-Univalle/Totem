@@ -20,7 +20,7 @@ const navegation = [
     name: "Publicidad",
     current: false,
     icon: MdContactMail,
-    path: "/publicidad",
+    path: "/Publicidad",
   },
 ];
 
@@ -87,7 +87,7 @@ const Sidebar = () => {
 
             <h3>Help Center</h3>
             <p>Please contact us</p>
-            <button className="btn ; background">Go to help</button>
+            <button className="btn">Go to help</button>
           </div>
         </div>
       </div>

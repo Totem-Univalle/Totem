@@ -1,6 +1,6 @@
 module.exports = {
-  content: ["./src/*/**/***/****.{js,jsx,ts,tsx}",
-  ".src/views/Panel/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}",
+    "!./src/components/sidebar_section/Sidebar.jsx"],
   theme: {
     extend: {},
     fontFamily: {

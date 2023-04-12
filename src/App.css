@@ -50,6 +50,16 @@ li{
   font-size: var(--h2FontSize);
 }
 
+/* El root de Luciana en formulario paso de root a div por motivos de integracion */
+.divMain {
+  background-color: #282c34;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
 img{
   width: 100%;
   height: auto;
@@ -91,9 +101,10 @@ body{
   justify-content: center;
   margin: auto;
   padding: 1rem;
+  width: 100%;
 }
 
-.container{
+.containerV{
   position: relative;
   width: 95vw;
   height: 95vh;
