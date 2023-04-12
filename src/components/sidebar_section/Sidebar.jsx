@@ -5,7 +5,7 @@ import { MdEditLocationAlt } from "react-icons/md";
 import { HiTemplate } from "react-icons/hi";
 import { MdContactMail } from "react-icons/md";
 import { BsQuestionCircle } from "react-icons/bs";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import Routing from "../routes/routing";
 
 const navegation = [
@@ -13,9 +13,9 @@ const navegation = [
     name: "Locaciones",
     current: false,
     icon: MdEditLocationAlt,
-    path: "/locaciones",
+    path: "/Locaciones",
   },
-  { name: "Plantillas", current: false, icon: HiTemplate, path: "/plantillas" },
+  { name: "Plantillas", current: false, icon: HiTemplate, path: "/Plantillas" },
   {
     name: "Publicidad",
     current: false,

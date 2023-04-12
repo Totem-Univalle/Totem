@@ -1,6 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}",
-    "!./src/components/sidebar_section/Sidebar.jsx"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {},
     fontFamily: {
