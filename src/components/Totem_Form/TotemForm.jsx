@@ -71,6 +71,7 @@ function AdminRegistrationForm() {
                 type="file"
                 id="image"
                 name="image"
+                accept="image/jpg, image/jpeg, image/png" 
                 onChange={handleImageChange}
               />
             </label>
