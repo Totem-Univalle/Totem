@@ -43,7 +43,7 @@ const PanelTotem = () => {
     <div>
         <div className="pb-8">
           <p className="text-4xl font-bold inline border-b-4 border-gray-500">
-            Centro de Instituciones
+            Totems
           </p>
         </div>
         <div className="grid gap-8 lg:gap-14 lg:grid-cols-2 ">

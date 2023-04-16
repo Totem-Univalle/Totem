@@ -5,7 +5,7 @@ import { MdEditLocationAlt } from "react-icons/md";
 import { HiTemplate } from "react-icons/hi";
 import { MdContactMail } from "react-icons/md";
 import { BsQuestionCircle } from "react-icons/bs";
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter, Link, useLocation } from "react-router-dom";
 import Routing from "../routes/routing";
 
 const navegation = [
@@ -38,8 +38,15 @@ const user = {
 };
 
 const Sidebar = () => {
+
+  const location = useLocation();
+
+  // Verifica si la ruta actual es "/Login"
+  if (location.pathname === '/Login') {
+    return null; // Retorna null para ocultar el sidebar
+  }
+
   return (
-    <BrowserRouter>
       <div className="sideBar grid">
         <div className="logoDiv flex">
           <Link to="/">
@@ -91,8 +98,6 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <Routing/>
-    </BrowserRouter>
   );
 };
 

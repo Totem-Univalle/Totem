@@ -6,5 +6,7 @@ module.exports = {
       signature: ["Great Vibes"],
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 };
