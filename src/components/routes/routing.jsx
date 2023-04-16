@@ -7,19 +7,19 @@ import PanelTotem from "../../views/Panel/PanelTotem";
 import FormLocation from "../../views/Forms/Locacion";
 import SeleccionPlantilla from "../../views/Forms/SeleccionPlantilla";
 import Login from "../../views/Login/LoginPage";
-/* import PrivateRoute from "./PrivateRoute"; */
+import PrivateRoute from "./PrivateRoute";
 
 const Routing = () => {
   return (
     <div className="mainContent">
       <Routes>
 
-{/*         <Route element={<PrivateRoute />}> */}
+        <Route element={<PrivateRoute />}>
           <Route path="/" element={<PanelTotem />} />
           <Route path="/Publicidad" element={<AdvertisingDisplay />} />
           <Route path="/Locaciones" element={<FormLocation />} />
           <Route path="/Plantillas" element={<SeleccionPlantilla />} />
-{/*         </Route> */}
+        </Route>
 
         <Route path="/Login" element={<Login />} />
       </Routes>
