@@ -22,6 +22,25 @@ const navegation = [
     icon: MdContactMail,
     path: "/Publicidad",
   },
+  {
+    name: "Logos",
+    current: false,
+    icon: HiTemplate,
+    path: "/Logos",
+  },
+  {
+    name: "Admins",
+    current: false,
+    icon: MdContactMail,
+    path: "/AdminForm",
+  },
+  {
+    name: "Totems",
+    current: false,
+    icon: HiTemplate,
+    path: "/TotemForm",
+  },
+
 ];
 
 const userNavigation = [

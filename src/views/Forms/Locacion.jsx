@@ -2,10 +2,10 @@ import React from "react";
 
 const Locacion = () => {
   return (
-    <section class="p-6 bg-white rounded-md shadow-md dark:bg-gray-800 h-full">
-      <div className="mx-auto max-w-4xl">
+    <>
+      <section class="max-w-full h-full p-6 bg-white rounded-md shadow-md dark:bg-gray-800 mt-0">
         <div className="pb-8">
-          <p className="text-4xl font-bold inline border-b-4 border-gray-500 text-white">
+          <p className="text-4xl font-bold inline border-b-4 border-gray-500">
             Nueva Localizacion
           </p>
         </div>
@@ -69,15 +69,15 @@ const Locacion = () => {
               </label>
               <input
                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                aria-describedby="file_input_help"
-                id="file_input"
+                id="multiple_files"
                 type="file"
+                multiple
               />
               <p
                 class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                 id="file_input_help"
               >
-                SVG, PNG, JPG or GIF (MAX. 800x400px).
+                SVG, PNG, JPG or GIF .
               </p>
             </div>
 
@@ -90,15 +90,15 @@ const Locacion = () => {
               </label>
               <input
                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                aria-describedby="file_input_help"
-                id="file_input"
+                id="multiple_files"
                 type="file"
+                multiple
               />
               <p
                 class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                 id="file_input_help"
               >
-                SVG, PNG, JPG or GIF (MAX. 800x400px).
+                SVG, PNG, JPG or GIF .
               </p>
             </div>
 
@@ -149,8 +149,8 @@ const Locacion = () => {
             </button>
           </div>
         </form>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

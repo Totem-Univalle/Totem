@@ -7,6 +7,9 @@ import AdvertisingDisplay from "../../views/Advertising/Adversising_Display";
 import PanelTotem from '../../views/Panel/PanelTotem'
 import FormLocation from '../../views/Forms/Locacion'
 import SeleccionPlantilla from "../../views/Forms/SeleccionPlantilla";
+import Logos from "../../views/Forms/Logos";
+import TotemForm from "../../views/Forms/TotemForm";
+import AdminForm from "../../views/Admin_Form/AdminForm";
 
 const Routing = () => {
   return (
@@ -16,6 +19,9 @@ const Routing = () => {
           <Route path="/Publicidad" element={<AdvertisingDisplay />} />
           <Route path="/Locaciones" element={<FormLocation/>} />
           <Route path="/Plantillas" element={<SeleccionPlantilla/>} />
+          <Route path="/Logos" element={<Logos/>} />
+          <Route path="/AdminForm" element={<AdminForm/>} />
+          <Route path="/TotemForm" element={<TotemForm/>} />
         </Routes>
       </div>
   );
