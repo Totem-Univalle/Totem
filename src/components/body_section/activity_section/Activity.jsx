@@ -6,8 +6,8 @@ import AdminTable from '../../Admin_Form/AdminTable'
 const Activity = () => {
   return (
     <div >
-        {/* <AdminRegistrationForm></AdminRegistrationForm> */}
-        <AdminTable/>
+        <AdminRegistrationForm></AdminRegistrationForm>
+        {/* <AdminTable/> */}
     </div>
   )
 }
