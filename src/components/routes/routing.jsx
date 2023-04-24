@@ -9,7 +9,9 @@ import FormLocation from '../../views/Forms/Locacion'
 import SeleccionPlantilla from "../../views/Forms/SeleccionPlantilla";
 import Logos from "../../views/Forms/Logos";
 import TotemForm from "../../views/Forms/TotemForm";
+import errorBusqueda from "../../views/Busqueda/errorBusqueda";
 import AdminForm from "../../views/Admin_Form/AdminForm";
+
 
 const Routing = () => {
   return (
@@ -22,6 +24,7 @@ const Routing = () => {
           <Route path="/Logos" element={<Logos/>} />
           <Route path="/AdminForm" element={<AdminForm/>} />
           <Route path="/TotemForm" element={<TotemForm/>} />
+          <Route path="/errorBusqueda" element={<errorBusqueda/>} />
         </Routes>
       </div>
   );

@@ -40,6 +40,12 @@ const navegation = [
     icon: HiTemplate,
     path: "/TotemForm",
   },
+  {
+    name: "MsgError",
+    current: false,
+    icon: HiTemplate,
+    path: "/errorBusqueda",
+  },
 
 ];
 
