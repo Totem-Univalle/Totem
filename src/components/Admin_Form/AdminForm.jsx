@@ -122,79 +122,86 @@ function AdminRegistrationForm() {
   };
 
   return (
-    <form onSubmit={sendData}>
-      <div>
-        <div>
-          <label
-            className="text-gray-700 dark:text-gray-200"
-            htmlFor="firstName"
-          >
-            Nombres
-          </label>
-          <input
-            required
-            type="text"
-            value={usuario.nombre}
-            name="nombre"
-            onChange={manejarCambios}
-            id="firstName"
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-          />
-        </div>
-
-        <div>
-          <label
-            className="text-gray-700 dark:text-gray-200"
-            htmlFor="lastName"
-          >
-            Apellidos
-          </label>
-          <input
-            required
-            type="text"
-            value={usuario.apellido}
-            name="apellido"
-            onChange={manejarCambios}
-            id="lastName"
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            required
-            type="email"
-            value={usuario.email}
-            name="email"
-            onChange={manejarCambios}
-            id="email"
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email">Institución:</label>
-          <input
-            required
-            type="text"
-            value={usuario.institucion}
-            name="institucion"
-            onChange={manejarCambios}
-            id="institucion"
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-          />
-        </div>
-
-        <div className="flex justify-end mt-6">
-          <button
-            type="submit"
-            className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-          >
-            Registrar
-          </button>
-        </div>
+    <>
+      <div className="pb-8">
+        <p className="text-4xl font-bold inline border-b-4 border-gray-500">
+          Registrar Usuario
+        </p>
       </div>
-    </form>
+      <form onSubmit={sendData}>
+        <div>
+          <div>
+            <label
+              className="text-gray-700 dark:text-gray-200"
+              htmlFor="firstName"
+            >
+              Nombres
+            </label>
+            <input
+              required
+              type="text"
+              value={usuario.nombre}
+              name="nombre"
+              onChange={manejarCambios}
+              id="firstName"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+
+          <div>
+            <label
+              className="text-gray-700 dark:text-gray-200"
+              htmlFor="lastName"
+            >
+              Apellidos
+            </label>
+            <input
+              required
+              type="text"
+              value={usuario.apellido}
+              name="apellido"
+              onChange={manejarCambios}
+              id="lastName"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              required
+              type="email"
+              value={usuario.email}
+              name="email"
+              onChange={manejarCambios}
+              id="email"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email">Institución:</label>
+            <input
+              required
+              type="text"
+              value={usuario.institucion}
+              name="institucion"
+              onChange={manejarCambios}
+              id="institucion"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+
+          <div className="flex justify-end mt-6">
+            <button
+              type="submit"
+              className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+            >
+              Registrar
+            </button>
+          </div>
+        </div>
+      </form>
+    </>
   );
 }
 
