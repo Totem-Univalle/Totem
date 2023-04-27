@@ -11,11 +11,21 @@ import { DateT2 } from "./DateT2";
 import { useState } from "react";
 
 export function CardT2() {
-  const [browse,SetBrowse]=useState('');
+  const [browse, SetBrowse] = useState("");
   function handleSubmit(event) {
-    event.preventDefault();
-    // Realizar la lógica de busqueda aquí
-    
+    if (event.key == "Enter") {
+      event.preventDefault();
+
+      // Realizar la lógica de busqueda aquí
+      let browse = "Universidad Mayor de San Simon";
+      let keys = browse.split(" ");
+      let reject = ["la", "las", "el", "los", "de", "del"];
+      let filteredKeys = keys;
+      for (let i = 0; i < reject.length; i++) {
+        filteredKeys = filteredKeys.filter((item) => item !== reject[i]);
+      }
+      console.log(filteredKeys);
+    }
   }
   return (
     <div className={styles.panel}>
@@ -41,7 +51,7 @@ export function CardT2() {
           </tbody>
         </table>
       </div>
-      <table  className="search_wrapper">
+      <table className="search_wrapper">
         <tbody>
           <tr>
             <td>
@@ -55,16 +65,17 @@ export function CardT2() {
                 placeholder="Buscar..."
                 className={styles.search}
                 value={browse}
-                onChange={(event)=>SetBrowse(event.target.value)}
+                onChange={(event) => SetBrowse(event.target.value)}
+                onKeyUp={handleSubmit}
               />
             </td>
           </tr>
           <tr>
             <td>
-              <RelojT2/>
+              <RelojT2 />
             </td>
-            <td > 
-              <DateT2/>
+            <td>
+              <DateT2 />
             </td>
           </tr>
         </tbody>

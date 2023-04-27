@@ -3,8 +3,25 @@ import Carrusel from "./Carrusel";
 import { pics } from "./Data";
 import gif from "/images/animation.gif";
 import gifMic from "/images/mic7.gif";
+import { useState } from "react";
 
 export function Card() {
+  const [browse, SetBrowse] = useState("");
+  function handleSubmit(event) {
+    if (event.key == "Enter") {
+      event.preventDefault();
+
+      // Realizar la lógica de busqueda aquí
+      let browse = "Universidad Mayor de San Simon";
+      let keys = browse.split(" ");
+      let reject = ["la", "las", "el", "los", "de", "del"];
+      let filteredKeys = keys;
+      for (let i = 0; i < reject.length; i++) {
+        filteredKeys = filteredKeys.filter((item) => item !== reject[i]);
+      }
+      console.log(filteredKeys);
+    }
+  }
   return (
     <div className={styles.panel}>
       <div className={styles.topBar}>
@@ -42,6 +59,9 @@ export function Card() {
                 type="text"
                 placeholder="Buscar..."
                 className={styles.search}
+                value={browse}
+                onChange={(event) => SetBrowse(event.target.value)}
+                onKeyUp={handleSubmit}
               />
             </td>
           </tr>
