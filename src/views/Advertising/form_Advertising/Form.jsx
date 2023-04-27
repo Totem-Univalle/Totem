@@ -1,103 +1,76 @@
-import React, { useState, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./formStyle.css";
+import React, { useState } from "react";
+import axios from "axios";
 
-const Form = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [files, setFiles] = useState([]);
-  const [imagePreview, setImagePreview] = useState(null);
-  const dropzoneRef = useRef();
-  const inputRef = useRef(null);
+function Formulario() {
+  const [FechaInicio, setFechaInicio] = useState("");
+  const [FechaFin, setFechaFin] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [totem, setTotem] = useState(1);
+  const [mensajeConfirmacion, setMensajeConfirmacion] = useState(null);
 
-  const onDrop = (acceptedFiles) => {
-    setFiles(acceptedFiles);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("FechaInicio", FechaInicio);
+    formData.append("FechaFin", FechaFin);
+    formData.append("Imagen", imageFile);
+    formData.append("IdTotem", totem);
+
+    axios
+      .post("https://localhost:7264/api/Publicidad", formData)
+      .then((response) => {
+        console.log(response);
+        setMensajeConfirmacion("La publicidad se ha creado correctamente.");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  function handleDropzoneClick() {
-    // Abre el explorador de archivos cuando el usuario hace clic en el dropzone
-    inputRef.current.click();
-  }
-  //evento de subida de imagen
-  function handleImageUpload(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
-
-    reader.readAsDataURL(file);
-  }
-  //eventos de dropzone
-  function handleDropzoneHover(event) {
-    event.preventDefault();
-    dropzoneRef.current.style.cursor = "pointer";
-  }
-  function handleDropzoneHoverOut(event) {
-    event.preventDefault();
-    dropzoneRef.current.style.cursor = "initial";
-  }
-
   return (
-    <div className="form-container">
-      <div className="form-group">
-        <label>Fecha de inicio</label>
-        <br />
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Fecha de fin</label>
-        <br />
-        <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
-      </div>
-
-      <div className="form-group">
-        <label>Archivos</label>
-        <br />
-        <div
-          className="dropzone"
-          ref={dropzoneRef}
-          onClick={handleDropzoneClick}
-          onDrop={handleImageUpload}
-          onDragOver={handleDropzoneHover}
-          onDragLeave={handleDropzoneHoverOut}
-        >
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>FechaInicio:</label>
+          <input
+            type="date"
+            value={FechaInicio}
+            onChange={(e) => setFechaInicio(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>FechaFin:</label>
+          <input
+            type="date"
+            value={FechaFin}
+            onChange={(e) => setFechaFin(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>totem id:</label>
+          <input
+            type="number"
+            value={totem}
+            onChange={(e) => setTotem(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Imagen:</label>
           <input
             type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            ref={inputRef}
-            style={{ display: "none" }}
+            onChange={(e) => setImageFile(e.target.files[0])}
           />
-          {imagePreview ? (
-            <img
-              src={imagePreview}
-              alt="Preview"
-              style={{ width: "250px", height: "400px" }}
-            />
-          ) : (
-            <p>Arrastra una imagen aquí o haz clic para seleccionar una.</p>
-          )}
         </div>
-
-        <ul>
-          {files.map((file) => (
-            <li key={file.name}>
-              {file.name} - {file.size} bytes
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <button type="submit">Enviar</button>
+        <button type="submit">Enviar</button>
+        <br></br>
+        {mensajeConfirmacion && <p>{mensajeConfirmacion}</p>}
+      </form>
     </div>
   );
-};
+}
 
-export default Form;
+export default Formulario;
