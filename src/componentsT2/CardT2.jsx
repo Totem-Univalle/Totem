@@ -8,8 +8,15 @@ import gifMic from "/images/mic6.gif";
 import { DescriptionT2 } from "./DescriptionT2";
 import { RelojT2 } from "./RelojT2";
 import { DateT2 } from "./DateT2";
+import { useState } from "react";
 
 export function CardT2() {
+  const [browse,SetBrowse]=useState('');
+  function handleSubmit(event) {
+    event.preventDefault();
+    // Realizar la lógica de busqueda aquí
+    
+  }
   return (
     <div className={styles.panel}>
       <div className={styles.topBar}>
@@ -47,6 +54,8 @@ export function CardT2() {
                 type="text"
                 placeholder="Buscar..."
                 className={styles.search}
+                value={browse}
+                onChange={(event)=>SetBrowse(event.target.value)}
               />
             </td>
           </tr>
