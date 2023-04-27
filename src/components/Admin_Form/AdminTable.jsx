@@ -54,12 +54,15 @@ const AdminTable = () => {
               console.error("Error:", error);
             });
           //----------------------------------------------------------------
-          window.location.reload(true);
-          Swal.fire(
-            "¡Eliminado!",
-            "Usuario eliminado exitosamente.",
-            "success"
+          MySwal.fire({
+            icon: "success",
+            title: "Usuario eliminado exitosamente.",
+   
+            timer: 2000,
+          }
           );
+          window.location.reload(true);
+          
         } catch (error) {
           console.error(error);
         }
@@ -94,21 +97,19 @@ const AdminTable = () => {
               <tbody>
                 {usuarios.map((usuario) => (
                   <tr key={usuario.idUsuario} className="bg-gray-800">
-                    <td className="p-3">
+                    
+                    <td className="p-3 text-center">
+                      
                       <div className="flex align-items-center">
-                        <img
-                          className="rounded-full h-12 w-12  object-cover"
-                          src="https://e7.pngegg.com/pngimages/323/705/png-clipart-user-profile-get-em-cardiovascular-disease-zingah-avatar-miscellaneous-white.png"
-                          alt="unsplash image"
-                        />
+                        
 
-                        <div className="ml-3">{usuario.nombre}</div>
+                        <div className="ml-3 text-center">{usuario.nombre}</div>
                       </div>
                     </td>
-                    <td className="p-3">{usuario.apellido}</td>
-                    <td className="p-3 font-bold">{usuario.email}</td>
-                    <td className="p-3 font-bold">
-                      <span className="bg-blue-500 text-gray-50 rounded-md px-2">
+                    <td className="p-3 text-center">{usuario.apellido}</td>
+                    <td className="p-3 font-bold text-center">{usuario.email}</td>
+                    <td className="p-3 font-bold text-center">
+                      <span className="bg-blue-500 text-center text-gray-50 rounded-md px-2">
                         {usuario.institucion}
                       </span>
                     </td>

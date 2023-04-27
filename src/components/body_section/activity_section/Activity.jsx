@@ -7,7 +7,7 @@ const Activity = () => {
   return (
     <div >
         <AdminRegistrationForm></AdminRegistrationForm>
-        {/* <AdminTable/> */}
+        <AdminTable/>
     </div>
   )
 }
