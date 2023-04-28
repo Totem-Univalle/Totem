@@ -10,6 +10,8 @@ import SeleccionPlantilla from "../../views/Forms/SeleccionPlantilla";
 import Logos from "../../views/Forms/Logos";
 import TotemForm from "../../views/Forms/TotemForm";
 import AdminForm from "../../views/Admin_Form/AdminForm";
+import EditPublicidad from "../../views/Advertising/form_Advertising/FormEditPublicidad"
+import TablePublicidad from "../../views/Advertising/form_Advertising/TablePublicidad"
 
 const Routing = () => {
   return (
@@ -22,6 +24,8 @@ const Routing = () => {
           <Route path="/Logos" element={<Logos/>} />
           <Route path="/AdminForm" element={<AdminForm/>} />
           <Route path="/TotemForm" element={<TotemForm/>} />
+          <Route path="/EditPublicidad/:id" element={<EditPublicidad />} />
+          <Route path="/TablePublicidad" element={<TablePublicidad/>} />
         </Routes>
       </div>
   );
