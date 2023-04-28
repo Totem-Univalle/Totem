@@ -4,30 +4,36 @@ import "../sidebar_section/sidebar.css";
 import { MdEditLocationAlt } from "react-icons/md";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import AdvertisingDisplay from "../../views/Advertising/Adversising_Display";
-import PanelTotem from '../../views/Panel/PanelTotem'
-import FormLocation from '../../views/Forms/Locacion'
+import PanelTotem from "../../views/Panel/PanelTotem";
+import FormLocation from "../../views/Forms/Locacion";
 import SeleccionPlantilla from "../../views/Forms/SeleccionPlantilla";
 import Logos from "../../views/Forms/Logos";
 import TotemForm from "../../views/Forms/TotemForm";
 import AdminForm from "../../views/Admin_Form/AdminForm";
-import EditPublicidad from "../../views/Advertising/form_Advertising/FormEditPublicidad"
-import TablePublicidad from "../../views/Advertising/form_Advertising/TablePublicidad"
+import EditPublicidad from "../../views/Advertising/form_Advertising/FormEditPublicidad";
+import TablePublicidad from "../../views/Advertising/form_Advertising/TablePublicidad";
+import EditTotem from "../../views/Forms/TotemEdit";
+import TablaTotems from "../../views/Forms/TableTotems";
+
 
 const Routing = () => {
   return (
-      <div className="mainContent">
-        <Routes>
-          <Route path="/" element={<PanelTotem/>} />
-          <Route path="/Publicidad" element={<AdvertisingDisplay />} />
-          <Route path="/Locaciones" element={<FormLocation/>} />
-          <Route path="/Plantillas" element={<SeleccionPlantilla/>} />
-          <Route path="/Logos" element={<Logos/>} />
-          <Route path="/AdminForm" element={<AdminForm/>} />
-          <Route path="/TotemForm" element={<TotemForm/>} />
-          <Route path="/EditPublicidad/:id" element={<EditPublicidad />} />
-          <Route path="/TablePublicidad" element={<TablePublicidad/>} />
-        </Routes>
-      </div>
+    <div className="mainContent">
+      <Routes>
+        <Route path="/" element={<PanelTotem />} />
+        <Route path="/Publicidad" element={<AdvertisingDisplay />} />
+        <Route path="/Locaciones" element={<FormLocation />} />
+        <Route path="/Plantillas" element={<SeleccionPlantilla />} />
+        <Route path="/Logos" element={<Logos />} />
+        <Route path="/AdminForm" element={<AdminForm />} />
+        <Route path="/TotemForm" element={<TotemForm />} />
+        <Route path="/EditPublicidad/:id" element={<EditPublicidad />} />
+        <Route path="/TablePublicidad" element={<TablePublicidad />} />
+        <Route path="/EditTotem/:id" element={<EditTotem />} />
+        <Route path="/TablaTotems" element={<TablaTotems />} />
+        <Route path="/TotemForm" element={<TotemForm />} />
+      </Routes>
+    </div>
   );
 };
 
