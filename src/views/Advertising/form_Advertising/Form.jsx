@@ -14,6 +14,12 @@ function Formulario() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (FechaInicio.trim() === "" || FechaFin === "" || totem === "" || imageFile === null) {
+      // Si algún campo está vacío, mostrar mensaje de error
+      alert("Por favor, llene todos los campos antes de registrar.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("FechaInicio", FechaInicio);
     formData.append("FechaFin", FechaFin);
@@ -35,7 +41,7 @@ function Formulario() {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>FechaInicio:</label>
+          <label>Fecha Inicio:</label>
           <input
             type="date"
             value={FechaInicio}
@@ -43,7 +49,7 @@ function Formulario() {
           />
         </div>
         <div className="form-group">
-          <label>FechaFin:</label>
+          <label>Fecha Fin:</label>
           <input
             type="date"
             value={FechaFin}
@@ -67,7 +73,7 @@ function Formulario() {
         </div>
         <button type="submit">Enviar</button>
         <br></br>
-        {mensajeConfirmacion && <p>{mensajeConfirmacion}</p>}
+        {mensajeConfirmacion && <p >{mensajeConfirmacion}</p>}
       </form>
     </div>
   );

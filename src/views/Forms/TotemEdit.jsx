@@ -55,18 +55,16 @@ const TotemEditForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const { nombre, numeroPlantilla, imagen, idUsuario } = totems;
 
     if (!nombre || !numeroPlantilla || !idUsuario) {
-      console.log("Todos los campos son obligatorios");
+      alert("Por favor llene todos los campos del formulario.");
       return;
     }
     if (!imagen) {
-      console.log("La urlImagen es obligatoria");
+      alert("Por favor seleccione una imagen.");
       return;
     }
-
     axios
       .put(`https://localhost:7264/api/Totems/${id}`, totems,{
 
@@ -83,14 +81,16 @@ const TotemEditForm = () => {
   };
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Editar TOtem</h1>
+        <p className="text-4xl font-bold inline border-b-4 border-gray-500">
+          Editar Totem
+        </p>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
             htmlFor="nombre"
             className="block text-gray-700 font-bold mb-2"
           >
-            nombre
+            Nombre
           </label>
           <input
             type="text"
@@ -106,7 +106,7 @@ const TotemEditForm = () => {
             htmlFor="numeroPlantilla"
             className="block text-gray-700 font-bold mb-2"
           >
-            numero plntilla
+            Numero plantilla
           </label>
           <input
             type="number"
@@ -122,7 +122,7 @@ const TotemEditForm = () => {
             htmlFor="imagen"
             className="block text-gray-700 font-bold mb-2"
           >
-            urlImagen
+            Imagen
           </label>
           <input
             type="file"

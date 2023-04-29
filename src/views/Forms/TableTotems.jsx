@@ -8,9 +8,7 @@ const TotemList = () => {
   useEffect(() => {
     const fetchTotems = async () => {
       try {
-        const response = await axios.get(
-          "https://localhost:7264/api/Totems/"
-        );
+        const response = await axios.get("https://localhost:7264/api/Totems/");
         setTotems(response.data);
       } catch (error) {
         console.error(error);
@@ -20,16 +18,20 @@ const TotemList = () => {
   }, []);
 
   const handleDelete = (id) => {
-    axios
-      .delete(`https://localhost:7264/api/Totems/${id}`)
-      .then((response) => {
-        setTotems(
-          totems.filter((totems) => totems.idTotem !== id)
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const confirmDelete = window.confirm(
+      "¿Está seguro de que desea eliminar este totem?"
+    );
+
+    if (confirmDelete) {
+      axios
+        .delete(`https://localhost:7264/api/Totems/${id}`)
+        .then((response) => {
+          setTotems(totems.filter((totems) => totems.idTotem !== id));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
   return (
     <div className="container mx-auto">
@@ -66,8 +68,7 @@ const TotemList = () => {
                 >
                   Editar
                 </Link>
-               
-               
+
                 <button
                   onClick={() => handleDelete(totems.idTotem)}
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"

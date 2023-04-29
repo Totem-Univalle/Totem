@@ -86,10 +86,10 @@ const PublicidadEditForm = () => {
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold mb-4">Editar Publicidad</h1>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
+        <div className="form-group">
           <label
             htmlFor="fechaInicio"
-            className="block text-gray-700 font-bold mb-2"
+          
           >
             Fecha de inicio
           </label>
@@ -105,7 +105,7 @@ const PublicidadEditForm = () => {
         <div className="mb-4">
           <label
             htmlFor="fechaFin"
-            className="block text-gray-700 font-bold mb-2"
+           
           >
             Fecha de fin
           </label>
@@ -121,7 +121,7 @@ const PublicidadEditForm = () => {
         <div className="mb-4">
           <label
             htmlFor="imagen"
-            className="block text-gray-700 font-bold mb-2"
+           
           >
             urlImagen
           </label>
@@ -137,7 +137,7 @@ const PublicidadEditForm = () => {
         <div className="mb-4">
           <label
             htmlFor="idTotem"
-            className="block text-gray-700 font-bold mb-2"
+           
           >
             Id Totem
           </label>

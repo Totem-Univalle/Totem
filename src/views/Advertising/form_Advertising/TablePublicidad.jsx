@@ -20,6 +20,9 @@ const PublicidadList = () => {
   }, []);
 
   const handleDelete = (id) => {
+    const confirmDelete = window.confirm("¿Está seguro de que desea eliminar esta publicidad?");
+
+    if (confirmDelete) {
     axios
       .delete(`https://localhost:7264/api/Publicidad/${id}`)
       .then((response) => {
@@ -30,6 +33,7 @@ const PublicidadList = () => {
       .catch((error) => {
         console.log(error);
       });
+    }
   };
   return (
     <div className="container mx-auto">
