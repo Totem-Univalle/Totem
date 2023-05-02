@@ -65,6 +65,8 @@ function Locacion() {
       </label>
       <br />
       <button type="submit">Guardar</button>
+      <br></br>
+      <a href='/ListaLocaciones'>Lista Locaciones</a>
     </form>
   );
 }
