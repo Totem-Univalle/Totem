@@ -1,16 +1,23 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./TotemForm.css";
+import axios from "axios";
 
 function AdminRegistrationForm() {
   const [Nombre, setNombre] = useState("");
   const [NumeroPlantilla, setNumeroPlantilla] = useState(1);
   const [ImageFile, setImageFile] = useState(null);
   const [Usuario, setUsuario] = useState(1);
+  const [mensajeConfirmacion, setMensajeConfirmacion] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (Nombre.trim() === "" || NumeroPlantilla === "" || Usuario === "" || ImageFile === null) {
+    if (
+      Nombre.trim() === "" ||
+      NumeroPlantilla === "" ||
+      Usuario === "" ||
+      ImageFile === null
+    ) {
       // Si algún campo está vacío, mostrar mensaje de error
       alert("Por favor, llene todos los campos antes de registrar.");
       return;
@@ -25,6 +32,7 @@ function AdminRegistrationForm() {
       .post("https://localhost:7264/api/Totems", formData)
       .then((response) => {
         console.log(response);
+        setMensajeConfirmacion("El totem se ha creado correctamente.");
       })
       .catch((error) => {
         console.log(error);
@@ -72,7 +80,7 @@ function AdminRegistrationForm() {
           </div>
 
           <div className="my-4">
-          <label>Imagen Logo</label>
+            <label>Imagen Logo</label>
             <div className="flex items-left justify-left">
               <input
                 type="file"
@@ -89,6 +97,8 @@ function AdminRegistrationForm() {
               Registrar
             </button>
           </div>
+          <br></br>
+          {mensajeConfirmacion && <p>{mensajeConfirmacion}</p>}
         </div>
       </form>
     </>
