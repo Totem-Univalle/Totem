@@ -7,6 +7,7 @@ import PanelTotem from "../../views/Panel/PanelTotem";
 import FormLocation from "../../views/Forms/Locacion";
 import SeleccionPlantilla from "../../views/Forms/SeleccionPlantilla";
 import Login from "../../views/Login/LoginPage";
+import ForgotPassword from "../../views/Login/ForgotPassword";
 import PrivateRoute from "./PrivateRoute";
 
 const Routing = () => {
@@ -22,6 +23,7 @@ const Routing = () => {
         </Route>
 
         <Route path="/Login" element={<Login />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
       </Routes>
     </div>
   );

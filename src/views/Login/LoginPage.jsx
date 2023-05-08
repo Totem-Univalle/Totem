@@ -1,8 +1,9 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
+import { BrowserRouter, Link, useLocation } from "react-router-dom";
+
 
 export default function Login() {
-
   localStorage.setItem("token", null);
   localStorage.setItem("user", null);
 
@@ -12,19 +13,24 @@ export default function Login() {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+
+  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-
-      const response = await fetch("https://localhost:7264/api/Usuarios/Authenticate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      });
+      const response = await fetch(
+        "https://localhost:7264/api/Usuarios/Authenticate",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", data.user);
-      window.location.href = '/';
+      window.location.href = "/";
       // Haz algo con la respuesta de la API
     } catch (error) {
       console.error(error);
@@ -55,7 +61,7 @@ export default function Login() {
             </p>
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            <input type="hidden" name="remember" defaultValue="true"/>
+            <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
@@ -106,12 +112,16 @@ export default function Login() {
               </div> */}
 
               <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Olvidaste tu contraseña?
-                </a>
+                <Link to="/ForgotPassword">
+                  <a
+                 
+                   
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Olvidaste tu contraseña?
+                  </a>                
+                </Link>
+                
               </div>
             </div>
 
