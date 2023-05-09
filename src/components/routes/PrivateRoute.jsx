@@ -1,7 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
-const isAllowed = false;
+const isAllowed = localStorage.getItem("token");
 export const PrivateRoute = ({
-  isAllowed,
   redirectTo = "/Login",
   children,
 }) => {
