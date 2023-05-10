@@ -13,29 +13,30 @@ export default function Login() {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-
-  
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
-        "https://localhost:7264/api/Usuarios/Authenticate",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+
+      const response = await fetch("https://localhost:7264/api/Usuarios/Authenticate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
       const data = await response.json();
+      console.log(data);
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", data.user);
-      window.location.href = "/";
+      //window.location.href = '/';
       // Haz algo con la respuesta de la API
     } catch (error) {
       console.error(error);
     }
   };
+    // if (submitType === "admin") {
+    //   console.log("2")
+      
+  
+    // }
 
   return (
     <>
@@ -112,14 +113,12 @@ export default function Login() {
               </div> */}
 
               <div className="text-sm">
-                <Link to="/ForgotPassword">
-                  <a
-                 
-                   
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
+                <Link 
+                to="/ForgotPassword" 
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
                     Olvidaste tu contraseña?
-                  </a>                
+                                 
                 </Link>
                 
               </div>
@@ -128,6 +127,7 @@ export default function Login() {
             <div>
               <button
                 type="submit"
+                // onClick={(event) => handleSubmit(event, "admin")}     
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -136,8 +136,22 @@ export default function Login() {
                     aria-hidden="true"
                   />
                 </span>
-                Iniciar Sesión
+                Iniciar Sesión Como Administrador
               </button>
+              <br />
+              {/* <button
+                type="submit"
+                // onClick={(event) => handleSubmit(event, "totem")}               
+                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <LockClosedIcon
+                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                    aria-hidden="true"
+                  />
+                </span>
+                Iniciar Sesión Como Totem
+              </button> */}
             </div>
           </form>
         </div>
