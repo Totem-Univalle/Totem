@@ -8,14 +8,12 @@ const Timer = ({time}) => {
 
   useEffect(() => {
     if (timeLeft === 0) {
-      console.log('REDIRIGIENDO WEON')
       setRedirect(true);
     } else {
       
       const timerId = setTimeout(() => {
         setTimeLeft(timeLeft - 1);
       }, 1000);
-      console.log('ESTAMOS CON ' + timeLeft + ' segundos')
       return () => clearTimeout(timerId);
     }
   }, [timeLeft]);
