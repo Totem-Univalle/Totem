@@ -37,7 +37,7 @@ export function CardT2() {
   }
   return (
     <div className={styles.panel}>
-      <Timer time={20}/>
+      <Timer time={20} route={'/inactive'}/>
       <div className={styles.topBar}>
         <table>
           <tbody>

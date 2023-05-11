@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Timer = ({time}) => {
+const Timer = ({time,route}) => {
   const [timeLeft, setTimeLeft] = useState(time); // tiempo en segundos
   const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate(); // obtenemos la función de navegación desde el hook useNavigate
@@ -21,7 +21,7 @@ const Timer = ({time}) => {
   useEffect(() => {
     if (redirect) {
       // redireccionar a otra página
-      navigate('/inactive');
+      navigate(route);
     }
   }, [redirect, navigate]);
 
