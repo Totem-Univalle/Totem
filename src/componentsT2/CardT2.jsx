@@ -3,15 +3,22 @@ import CarruselT2 from "./CarruselT2";
 import { MapT2 } from "./MapT2";
 import { pics } from "./DataT2";
 import gif from "/images/animation.gif";
-
 import gifMic from "/images/mic6.gif";
 import { DescriptionT2 } from "./DescriptionT2";
 import { RelojT2 } from "./RelojT2";
 import { DateT2 } from "./DateT2";
 import { useState } from "react";
+import Timer from "../components/TimeRedirect/Timer";
 
 export function CardT2() {
   const [browse, SetBrowse] = useState("");
+  //id, keysSended
+  //Se hace la peticion de la locacion que se especificó
+  // fetch("https://localhost:5173/api/TotemLocacion?"+id+"&keys=" + keysSended).then(
+  //   (result) => {
+  //     console.log(result.json());
+  //   }
+  // );
   function handleSubmit(event) {
     if (event.key == "Enter") {
       event.preventDefault();
@@ -24,11 +31,13 @@ export function CardT2() {
       for (let i = 0; i < reject.length; i++) {
         filteredKeys = filteredKeys.filter((item) => item !== reject[i]);
       }
-      console.log(filteredKeys);
+      let keysSend = filteredKeys.toString();
+      //FALTA HACER LA RUTA A LA MISMA PAGINA PERO CON OTROS PARAMETROS
     }
   }
   return (
     <div className={styles.panel}>
+      <Timer time={20}/>
       <div className={styles.topBar}>
         <table>
           <tbody>

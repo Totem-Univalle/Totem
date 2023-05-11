@@ -1,0 +1,36 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const Timer = ({time}) => {
+  const [timeLeft, setTimeLeft] = useState(time); // tiempo en segundos
+  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate(); // obtenemos la función de navegación desde el hook useNavigate
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      console.log('REDIRIGIENDO WEON')
+      setRedirect(true);
+    } else {
+      
+      const timerId = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      console.log('ESTAMOS CON ' + timeLeft + ' segundos')
+      return () => clearTimeout(timerId);
+    }
+  }, [timeLeft]);
+
+  useEffect(() => {
+    if (redirect) {
+      // redireccionar a otra página
+      navigate('/inactive');
+    }
+  }, [redirect, navigate]);
+
+  return (
+    <>
+    </>
+  );
+}
+
+export default Timer;

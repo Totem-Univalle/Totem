@@ -4,6 +4,7 @@ import { pics } from "./Data";
 import gif from "/images/animation.gif";
 import gifMic from "/images/mic7.gif";
 import { useState } from "react";
+import Timer from "./TimeRedirect/Timer";
 
 export function Card() {
   const [browse, SetBrowse] = useState("");
@@ -24,6 +25,7 @@ export function Card() {
   }
   return (
     <div className={styles.panel}>
+      <Timer time={20}/>
       <div className={styles.topBar}>
         <table  >
           <tbody>
