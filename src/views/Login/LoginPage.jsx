@@ -2,42 +2,62 @@ import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { BrowserRouter, Link, useLocation } from "react-router-dom";
 
-
 export default function Login() {
   localStorage.setItem("token", null);
   localStorage.setItem("user", null);
 
-  const [formData, setFormData] = useState({ email: "", pass: "" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event, submitType) => {
     event.preventDefault();
-    try {
+    if (submitType === "admin") {
+      try {
+        const response = await fetch(
+          "https://localhost:7264/api/Usuarios/Authenticate",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", data.user);
+        window.location.href = "/";
+        // Haz algo con la respuesta de la API
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (submitType === "totem") {
+      try {
+        const response = await fetch(
+          "https://localhost:7264/api/Usuarios/LoginTotem",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          }
+        );
 
-      const response = await fetch("https://localhost:7264/api/Usuarios/Authenticate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      });
-      const data = await response.json();
-      console.log(data);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", data.user);
-      //window.location.href = '/';
-      // Haz algo con la respuesta de la API
-    } catch (error) {
-      console.error(error);
+        if (response.status === 200) {
+          const data = await response.json();
+          localStorage.setItem("user", JSON.stringify(data.user));
+          //  const userL = JSON.parse(localStorage.getItem("user"));
+          //  console.log(userL.idUsuario);
+          window.location.href = '/Totems';
+        } else if (response.status === 401) {
+          console.log("No autorizado");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
-    // if (submitType === "admin") {
-    //   console.log("2")
-      
-  
-    // }
-
   return (
     <>
       <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
@@ -84,8 +104,8 @@ export default function Login() {
                   Password
                 </label>
                 <input
-                  name="pass"
-                  value={formData.pass}
+                  name="password"
+                  value={formData.password}
                   onChange={handleInputChange}
                   type="password"
                   autoComplete="current-password"
@@ -97,37 +117,20 @@ export default function Login() {
             </div>
 
             <div className="flex items-center justify-center">
-              {/* <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div> */}
-
               <div className="text-sm">
-                <Link 
-                to="/ForgotPassword" 
-                className="font-medium text-indigo-600 hover:text-indigo-500"
+                <Link
+                  to="/ForgotPassword"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                    Olvidaste tu contraseña?
-                                 
+                  Olvidaste tu contraseña?
                 </Link>
-                
               </div>
             </div>
 
             <div>
               <button
                 type="submit"
-                // onClick={(event) => handleSubmit(event, "admin")}     
+                onClick={(event) => handleSubmit(event, "admin")}
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -139,10 +142,10 @@ export default function Login() {
                 Iniciar Sesión Como Administrador
               </button>
               <br />
-              {/* <button
+              <button
                 type="submit"
-                // onClick={(event) => handleSubmit(event, "totem")}               
-                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={(event) => handleSubmit(event, "totem")}
+                className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockClosedIcon
@@ -151,7 +154,7 @@ export default function Login() {
                   />
                 </span>
                 Iniciar Sesión Como Totem
-              </button> */}
+              </button>
             </div>
           </form>
         </div>

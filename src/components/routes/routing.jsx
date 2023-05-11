@@ -9,6 +9,7 @@ import SeleccionPlantilla from "../../views/Forms/SeleccionPlantilla";
 import Login from "../../views/Login/LoginPage";
 import ForgotPassword from "../../views/Login/ForgotPassword";
 import PrivateRoute from "./PrivateRoute";
+import SelectTotem from "../../views/TotemsView/SelectTotem";
 
 const Routing = () => {
   return (
@@ -24,6 +25,7 @@ const Routing = () => {
 
         <Route path="/Login" element={<Login />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route path="/Totems" element={<SelectTotem/>} />
       </Routes>
     </div>
   );

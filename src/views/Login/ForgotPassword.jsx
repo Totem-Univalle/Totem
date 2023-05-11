@@ -25,7 +25,7 @@ const ForgotPassword = () => {
       const hashPass = CryptoJS.MD5(pass).toString(CryptoJS.enc.Hex);
       console.log(pass);
       console.log(hashPass);
-      matchingUser.Pass = hashPass;
+      matchingUser.Password = hashPass;
       try {
         const response = await fetch(
             `https://localhost:7264/api/Usuarios/${userId}`,
