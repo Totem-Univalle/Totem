@@ -32,6 +32,8 @@ const Routing = () => {
         <Route path="/EditTotem/:id" element={<EditTotem />} />
         <Route path="/TablaTotems" element={<TablaTotems />} />
         <Route path="/TotemForm" element={<TotemForm />} />
+        <Route path="/SeleccionPlantilla/:idTotem" element={<SeleccionPlantilla/>} />
+
       </Routes>
     </div>
   );
