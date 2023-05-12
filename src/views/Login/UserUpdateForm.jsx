@@ -49,7 +49,6 @@ function UserUpdateForm() {
       );
 
       if (response.status === 204) {
-       
         console.log("Datos actualizados exitosamente");
       }
     } catch (error) {
@@ -130,7 +129,12 @@ function UserUpdateForm() {
             className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <button type="submit"  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Actualizar</button>
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+        >
+          Actualizar
+        </button>
       </form>
     </div>
   );
