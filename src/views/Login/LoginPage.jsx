@@ -24,7 +24,9 @@ export default function Login() {
       const data = await response.json();
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", data.user);
-      window.location.href = '/';
+      localStorage.setItem("idUsuario", data.idUsuario);
+    
+      window.location.href = `/UserUpdateForm/${data.user.idUsuario}`;
       // Haz algo con la respuesta de la API
     } catch (error) {
       console.error(error);
