@@ -6,9 +6,8 @@ import AdvertisingDisplay from "../../views/Advertising/Adversising_Display";
 import PanelTotem from "../../views/Panel/PanelTotem";
 import FormLocation from "../../views/Forms/Locacion";
 import SeleccionPlantilla from "../../views/Forms/SeleccionPlantilla";
-import Login from "../../views/Login/UserUpdateForm";
-import Login from "../../views/Login";
-import Login from "../../views/Login/TablaUsers";
+import UserUpdateForm from "../../views/Login/UserUpdateForm";
+import Login from "../../views/Login/LoginPage";
 import PrivateRoute from "./PrivateRoute";
 
 const Routing = () => {
@@ -22,10 +21,11 @@ const Routing = () => {
           <Route path="/Locaciones" element={<FormLocation />} />
           <Route path="/Plantillas" element={<SeleccionPlantilla />} />
           <Route path="/UserUpdateForm/:idUsuario" element={<UserUpdateForm />} />
-          <Route path="/TablaUsers" element={<TablaUsers/>} />
+          
         </Route>
 
         <Route path="/Login" element={<Login />} />
+       
       </Routes>
     </div>
   );
