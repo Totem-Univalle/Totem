@@ -18,7 +18,7 @@ function App() {
       <div><Reloj></Reloj></div>
       <Fecha></Fecha>
       <Clima></Clima>
-      <Carrusel  images={pics}/>
+      <Carrusel/>
     </div>
   )
 }
