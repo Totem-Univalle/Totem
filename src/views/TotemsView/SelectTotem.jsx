@@ -13,7 +13,7 @@ export default function SelectTotem() {
     console.log(userL.idUsuario);
     const loadTotems = () => {
       axios
-        .get(`https://localhost:7264/api/TotemU/${userL.idUsuario}`)
+        .get(`https://totemapi.azurewebsites.net/api/TotemU/${userL.idUsuario}`)
         .then((response) => {
             setTotems(response.data);
           console.log(response.data);
@@ -50,6 +50,7 @@ export default function SelectTotem() {
                 <p className="text-lg font-semibold md:text-center ">
                   Estado : Activo
                 </p>
+                
 
                 
               </div>

@@ -15,7 +15,7 @@ const ForgotPassword = () => {
   const ResetPass = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("https://localhost:7264/api/Usuarios");
+    const response = await fetch("https://totemapi.azurewebsites.net/api/Usuarios");
     const data = await response.json();
     const matchingUser = data.find((user) => user.email === email);
     var userId;
@@ -28,7 +28,7 @@ const ForgotPassword = () => {
       matchingUser.Password = hashPass;
       try {
         const response = await fetch(
-            `https://localhost:7264/api/Usuarios/${userId}`,
+            `https://totemapi.azurewebsites.net/api/Usuarios/${userId}`,
             {
               method: "PUT",
               headers: {
