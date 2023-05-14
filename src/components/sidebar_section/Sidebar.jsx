@@ -42,7 +42,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   // Verifica si la ruta actual es "/Login"
-  if (location.pathname === '/Login') {
+  if (location.pathname === '/Login' || location.pathname ==='/ForgotPassword') {
     return null; // Retorna null para ocultar el sidebar
   }
 

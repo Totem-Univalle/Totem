@@ -33,7 +33,7 @@ export default function Login() {
         console.log(data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", data.user);
-        window.location.href = "/";
+        //window.location.href = "/";
         // Haz algo con la respuesta de la API
       } catch (error) {
         console.error(error);
