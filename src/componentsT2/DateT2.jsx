@@ -1,12 +1,12 @@
 import '/src/styleT2/DateT2.css';
 
-export const DateT2 = () => {
+export const DateT2 = ({date}) => {
     return (
         <>
             <div className="containerD">
                 <div className="contadorD">
                     <p>
-                        23 Marzo 2023
+                        {date}
                     </p>
                 </div>
             </div>

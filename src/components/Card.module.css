@@ -1,13 +1,13 @@
 
 .panel {
-   background-image: url(../images/bc8.gif);
+   /* background-image: url(../images/bc8.gif); */
   
   background-color: #ffffff;
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vh;
   height: 100vw;
-  position: absolute;
+  position: flex;
   transform: rotate(-90deg);
 }
 .date2 {

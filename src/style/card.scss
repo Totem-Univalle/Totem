@@ -12,6 +12,7 @@
     flex-direction: row;
     border-radius: 25px;
     position: relative;
+    align-content: center;
   }
  
   .card2 {
@@ -37,6 +38,8 @@
  
   
   .card .desc {
+    border-radius: 10px;
+    margin: auto;
     text-align: justify;
     font-size: 13px;
     

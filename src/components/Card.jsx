@@ -3,29 +3,83 @@ import Carrusel from "./Carrusel";
 import { pics } from "./Data";
 import gif from "/images/animation.gif";
 import gifMic from "/images/mic7.gif";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Timer from "./TimeRedirect/Timer";
+import { useNavigate,useLocation } from 'react-router-dom';
+import { Weather } from "./weather/weather";
 
 export function Card() {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [time, SetTime] = useState(3000);
   const [browse, SetBrowse] = useState("");
+  const [data,setData]=useState(null);
+  const [imagesFinal,setImages]=useState(null);
+
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+  const formattedDate = `${day}/${month}/${year}`;
+
+  let images;
+  let id = null, keysb = null,search = false;
+  const searchParams = new URLSearchParams(window.location.search)
+
+  id = searchParams.get('id')==null? null:searchParams.get('id').toString();
+  keysb = searchParams.get('keys')==null? null:searchParams.get('keys').toString();
+
   function handleSubmit(event) {
     if (event.key == "Enter") {
-      event.preventDefault();
 
-      // Realizar la lógica de busqueda aquí
-      let browse = "Universidad Mayor de San Simon";
+      event.preventDefault();
+      SetTime(300);
+
       let keys = browse.split(" ");
-      let reject = ["la", "las", "el", "los", "de", "del"];
+      SetBrowse("");
+      setImages(null);
+      images = null;
+      let reject = ["la", "las", "el", "los"];
       let filteredKeys = keys;
+
       for (let i = 0; i < reject.length; i++) {
         filteredKeys = filteredKeys.filter((item) => item !== reject[i]);
       }
-      console.log(filteredKeys);
+
+      navigate('/T1?id='+id+'&keys='+filteredKeys.toString());
     }
   }
+
+  useEffect(()=> {
+    let isMounted = true;
+    if(id !=null && keysb != null){
+      fetch('https://totemapi.azurewebsites.net/api/TotemLocacion?id=' + id +'&keys='+keysb).then(response => response.json())
+      .then(result => {
+        if(isMounted){
+          console.log(result);
+          setData(result);
+          images = result.urlCarruselImagenes.split(',');
+          let imagesF= images.map(image => Object.assign({image}))
+          setImages(imagesF);
+          console.log(imagesFinal);
+          
+        }
+      })
+      
+    }
+    return () => {isMounted = false}
+  }, [location]);
+  if(!data){
+    return <div>Loading....</div>
+  }
+  
+  
+  
+  
   return (
     <div className={styles.panel}>
-      <Timer time={20} route={'/inactive'}/>
+      <Timer time={time} route={'/inactive'}/>
       <div className={styles.topBar}>
         <table  >
           <tbody>
@@ -35,7 +89,7 @@ export function Card() {
               </td>
               <td align="center">
                 <div className={styles.title} align="center">
-                  <strong>Plaza principal de Tiquipaya</strong>
+                  <strong>{data == null?'totem':data['nombre']}</strong>
                 </div>
               </td>
               <td className={styles.image_wrapper}>
@@ -75,18 +129,14 @@ export function Card() {
           <tbody>
             <tr>
               <td rowSpan="4" align="center">
-                {/* <div className={styles.map_wrapper}>
-                <img className={styles.map} src="/images/map.png"></img>
-              </div> */}
                 <div className="card">
                   <div className="img-avatar2">
                     <div>
                       <h3>
-                        {" "}
                         <img
                           className={styles.info}
-                          src="/images/location.png"
-                        ></img>{" "}
+                          src={"/images/location.png"}
+                        ></img>
                         ¿Como llegar?
                       </h3>
                     </div>
@@ -94,24 +144,22 @@ export function Card() {
                   <div className="card-text">
                     <div className="title-total">
                       <div className="desc">
-                        <img className={styles.map} src="/images/map.png"></img>
+                        <img className={styles.map} src={data == null?"/images/map.png":data['urlMapa']}></img>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                {/* kjsdklf */}
               </td>
               <td>
                 <th>
                   <td>
                     <div className={styles.date2} align="left">
-                      <h2 className={styles.weather}>21°C</h2>
+                      <h2 className={styles.weather}><Weather/></h2>
                     </div>
                   </td>
                   <td>
                     <div className={styles.date1} align="center">
-                      <h4 className={styles.weather}> Marzo 13 2023</h4>
+                      <h4 className={styles.weather}> {formattedDate}</h4>
                     </div>
                   </td>
                 </th>
@@ -119,13 +167,6 @@ export function Card() {
             </tr>
             <tr>
               <td>
-                {/* <div className={styles.date2}>
-                  <img
-                    className={styles.weather}
-                    src="/images/weather-app.png"
-                  ></img>
-                  21 °C
-                </div> */}
                 <div className="cloud">
                   <span></span>
                 </div>
@@ -140,17 +181,8 @@ export function Card() {
                   <div className="card-text">
                     <div className="title-total">
                       <h2>Morgan Sweeney</h2>
-
                       <div className="desc">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum
+                        {data == null?"Bienvenido a los Totems":data['descripcion']}
                         <div>
                           <img className={styles.ilistration1} src={gif}></img>
                         </div>
@@ -164,7 +196,7 @@ export function Card() {
             <tr>
               <td colSpan="2" align="center">
                 <td align="center">
-                  <Carrusel className="carrusel" images={pics} />
+                  <Carrusel className="carrusel" images={imagesFinal==null?pics:imagesFinal} />
                 </td>
               </td>
             </tr>

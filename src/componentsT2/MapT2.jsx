@@ -1,6 +1,6 @@
 import styles from "./CardT2.module.css";
 
-export function MapT2(){
+export function MapT2({data}){
     return(
         <div className="cardT2">
                   <div className="img-avatar2T2">
@@ -18,7 +18,7 @@ export function MapT2(){
                   <div className="card-textT2">
                     <div className="title-totalT2">
                       <div className="descT2">
-                        <img className={styles.map} src="/images/map.png"></img>
+                        <img className={styles.map} src={data == null?"/images/map.png":data['urlMapa']}></img>
                       </div>
                     </div>
                   </div>
