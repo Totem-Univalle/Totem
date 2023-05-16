@@ -72,7 +72,7 @@ export function CardT2() {
     }
     return () => {isMounted = false}
   }, [location]);
-  if(!data){
+  if(!data && id==null){
     return <div>Loading....</div>
   }
 
