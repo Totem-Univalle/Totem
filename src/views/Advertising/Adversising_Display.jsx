@@ -1,49 +1,48 @@
 import "./styleCard.css";
 import Advertising from "./Advertising";
 import Modal from "./form_Advertising/FormAdd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 export function AdvertisingDisplay(props) {
   const [state, changeModalState] = useState(false);
+  const [publicidades, setPublicidad] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://totemapi.azurewebsites.net/api/PublicidadT/${id.slice(1)}`
+        );
+        setPublicidad(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(publicidades);
+
   return (
     <>
       <Modal state={state} changeState={changeModalState}></Modal>
       <div class="background">
-        <button class="addButton" onClick={() => changeModalState(!state)}>
+        <button
+          class="rounded-full bg-blue-500 px-5 py-3 text-base mb-3 font-medium text-white transition duration-200 hover:bg-blue-600 active:bg-blue-700 mt-10 ml-10"
+          onClick={() => changeModalState(!state)}
+        >
           Nueva Publicidad
         </button>
-        <div class="cardDisplay">
-          <Advertising
-            date="20/07/23"
-            src="https://www.univalle.edu/wp-content/uploads/2023/02/in_01.jpg"
-          />
-          <Advertising
-            date="20/07/23"
-            src="https://www.univalle.edu/wp-content/uploads/2023/02/in_01.jpg"
-          />
-          <Advertising
-            date="20/07/23"
-            src="https://www.univalle.edu/wp-content/uploads/2023/02/in_01.jpg"
-          />
-          <Advertising
-            date="20/07/23"
-            src="https://www.univalle.edu/wp-content/uploads/2023/02/in_01.jpg"
-          />
-          <Advertising
-            date="20/07/23"
-            src="https://www.univalle.edu/wp-content/uploads/2023/02/in_01.jpg"
-          />
-          <Advertising
-            date="20/07/23"
-            src="https://www.univalle.edu/wp-content/uploads/2023/02/in_01.jpg"
-          />
-          <Advertising
-            date="20/07/23"
-            src="https://www.univalle.edu/wp-content/uploads/2023/02/in_01.jpg"
-          />
-          <Advertising
-            date="20/07/23"
-            src="https://www.univalle.edu/wp-content/uploads/2023/02/in_01.jpg"
-          />
+        <div class="flex flex-wrap justify-center items-center">
+          {publicidades.map((publicidad) => (
+            <Advertising
+              date="20/07/23"
+              src={publicidad.urlPublicidad}
+              id={publicidades.idPublicidad}
+            />
+          ))}
         </div>
       </div>
     </>

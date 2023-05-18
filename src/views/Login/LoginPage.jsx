@@ -1,23 +1,29 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { BrowserRouter, Link, useLocation } from "react-router-dom";
+import CryptoJS from "crypto-js";
+
 
 export default function Login() {
   localStorage.setItem("token", null);
   localStorage.setItem("user", null);
+  localStorage.setItem("totem", null);
 
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+    formData.password = CryptoJS.MD5(formData.password).toString(CryptoJS.enc.Hex);
   };
 
   const handleSubmit = async (event, submitType) => {
     event.preventDefault();
+    formData.password = CryptoJS.MD5(formData.password).toString(CryptoJS.enc.Hex);
+    //console.log(formData);
     if (submitType === "admin") {
       try {
         const response = await fetch(
-          "https://localhost:7264/api/Usuarios/Authenticate",
+          "https:/totemapi.azurewebsites.net/api/Usuarios/Authenticate",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -25,10 +31,9 @@ export default function Login() {
           }
         );
         const data = await response.json();
-        console.log(data);
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", data.user);
-        window.location.href = "/";
+        localStorage.setItem("user", JSON.stringify(data.user));
+        window.location.href = "/Panel";
         // Haz algo con la respuesta de la API
       } catch (error) {
         console.error(error);
@@ -36,7 +41,7 @@ export default function Login() {
     } else if (submitType === "totem") {
       try {
         const response = await fetch(
-          "https://localhost:7264/api/Usuarios/LoginTotem",
+          "https://totemapi.azurewebsites.net/api/Usuarios/LoginTotem",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -46,7 +51,9 @@ export default function Login() {
 
         if (response.status === 200) {
           const data = await response.json();
-          localStorage.setItem("user", JSON.stringify(data.user));
+          const user = JSON.stringify(data.user);
+          delete user.pasword;
+          localStorage.setItem("user", user);
           //  const userL = JSON.parse(localStorage.getItem("user"));
           //  console.log(userL.idUsuario);
           window.location.href = '/Totems';
