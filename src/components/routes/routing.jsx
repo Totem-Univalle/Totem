@@ -11,6 +11,7 @@ import Logos from "../../views/Forms/Logos";
 import TotemForm from "../../views/Forms/TotemForm";
 import AdminForm from "../../views/Admin_Form/AdminForm";
 import ListaLocaciones from "../../views/Forms/ListaLocaciones"
+import EditLocaciones from "../../views/Forms/EditLocaciones";
 
 const Routing = () => {
   return (
@@ -24,6 +25,7 @@ const Routing = () => {
           <Route path="/Logos" element={<Logos/>} />
           <Route path="/AdminForm" element={<AdminForm/>} />
           <Route path="/TotemForm" element={<TotemForm/>} />
+          <Route path="/EditLocaciones/:id" element={<EditLocaciones/>} />
         </Routes>
       </div>
   );
