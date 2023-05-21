@@ -1,65 +1,90 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
-import { BrowserRouter, Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { useNavigate } from "react-router-dom";
 
+//Redux
+
+import { useSelector, useDispatch } from "react-redux";
+import { addUser } from "../../components/redux/userSlice";
+import { deleteTotem } from "../../components/redux/totemSlice";
+import { deleteLocations } from "../../components/redux/locationSlice";
+import { deletePublicidades } from "../../components/redux/publicidadSlice";
+//
 
 export default function Login() {
-  localStorage.setItem("token", null);
-  localStorage.setItem("user", null);
-  localStorage.setItem("totem", null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  dispatch(deleteTotem());
+  dispatch(deleteLocations());
+  dispatch(deletePublicidades());
 
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
-    formData.password = CryptoJS.MD5(formData.password).toString(CryptoJS.enc.Hex);
+    formData.password = CryptoJS.MD5(formData.password).toString(
+      CryptoJS.enc.Hex
+    );
   };
 
   const handleSubmit = async (event, submitType) => {
+    var user = null;
     event.preventDefault();
-    formData.password = CryptoJS.MD5(formData.password).toString(CryptoJS.enc.Hex);
+    formData.password = CryptoJS.MD5(formData.password).toString(
+      CryptoJS.enc.Hex
+    );
     //console.log(formData);
     if (submitType === "admin") {
       try {
-        const response = await fetch(
-          "https:/totemapi.azurewebsites.net/api/Usuarios/Authenticate",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-          }
-        );
-        const data = await response.json();
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        window.location.href = "/Panel";
-        // Haz algo con la respuesta de la API
+        fetch("https:/totemapi.azurewebsites.net/api/Usuarios/Authenticate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            user = {
+              idUsuario: data.user.idUsuario,
+              institucion: data.user.institucion,
+              rol: data.user.rol,
+              token: data.token,
+              nombre: data.user.nombre,
+              apellido: data.user.apellido,
+              email: data.user.email
+            };
+            dispatch(addUser(user));
+            navigate('/Panel');
+          })
+          .catch((error) => console.error(error));
+
       } catch (error) {
         console.error(error);
       }
     } else if (submitType === "totem") {
       try {
-        const response = await fetch(
-          "https://totemapi.azurewebsites.net/api/Usuarios/LoginTotem",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-          }
-        );
+        fetch("https://totemapi.azurewebsites.net/api/Usuarios/LoginTotem", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            user = {
+              idUsuario: data.user.idUsuario,
+              institucion: data.user.institucion,
+              rol: data.user.rol,
+              token: data.token,
+              nombre: data.user.nombre,
+              apellido: data.user.apellido,
+              email: data.user.email
+            };
+            dispatch(addUser(user));
+            navigate('/Panel');
+          })
+          .catch((error) => console.error(error));
 
-        if (response.status === 200) {
-          const data = await response.json();
-          const user = JSON.stringify(data.user);
-          delete user.pasword;
-          localStorage.setItem("user", user);
-          //  const userL = JSON.parse(localStorage.getItem("user"));
-          //  console.log(userL.idUsuario);
-          window.location.href = '/Totems';
-        } else if (response.status === 401) {
-          console.log("No autorizado");
-        }
       } catch (error) {
         console.error(error);
       }

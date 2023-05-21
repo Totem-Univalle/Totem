@@ -3,27 +3,31 @@ import Advertising from "./Advertising";
 import Modal from "./form_Advertising/FormAdd";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { addPublicidades } from "../../components/redux/publicidadSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-export function AdvertisingDisplay(props) {
+export function AdvertisingDisplay() {
+  const dispatch = useDispatch();
+  const publicidadesState = useSelector((state) => state.publicidad);
+
   const [state, changeModalState] = useState(false);
   const [publicidades, setPublicidad] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://totemapi.azurewebsites.net/api/PublicidadT/${id.slice(1)}`
-        );
-        setPublicidad(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
+    if(publicidadesState.publicidades === null){
+      fetch(`https://totemapi.azurewebsites.net/api/PublicidadT/${id.slice(1)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(addPublicidades(data));
+        setPublicidad(data);
+      })
+      .catch((error) => console.log(error));
+    } else {
+      setPublicidad(publicidadesState.publicidades);
+      confirm("usando publicidadesState");
+    }
   }, []);
-  console.log(publicidades);
 
   return (
     <>
@@ -40,7 +44,7 @@ export function AdvertisingDisplay(props) {
             <Advertising
               date="20/07/23"
               src={publicidad.urlPublicidad}
-              id={publicidades.idPublicidad}
+              idPublicidad={publicidades.idPublicidad}
             />
           ))}
         </div>

@@ -1,37 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addTotem } from "../../components/redux/totemSlice";
 
 const TotemEdit = () => {
-  const token = localStorage.getItem("token");
-  console.log(token);
+  const dispatch = useDispatch();
+
   const { id } = useParams();
   const [mensajeConfirmacion, setMensajeConfirmacion] = useState(null);
-  const [totems, setTotems] = useState({
-    nombre: "",
-    numeroPlantilla: 1,
-    imagen: null,
-    idUsuario: 1,
+  const totemState = useSelector(
+    (state) => state.totem
+  );
+  const [totem, setTotem] = useState({
+    nombre: totemState.nombre || "",
+    numeroPlantilla: totemState.numeroPlantilla || "",
+    urlLogo: totemState.urlLogo || "",
   });
 
   useEffect(() => {
-    const fetchPublicidad = async () => {
-      try {
-        const response = await axios.get(
-          `https:/totemapi.azurewebsites.net/api/Totems/${id.slice(1)}`
-        );
-        setTotems(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchPublicidad();
-  }, [id]);
+    if(totemState.idTotem === null){
+      fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id.slice(1)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const totem = {
+          idTotem: data.idTotem,
+          nombre: data.nombre,
+          numeroPlantilla: data.numeroPlantilla,
+          urlLogo: data.urlLogo
+        }
+        dispatch(addTotem(totem));
+        setTotem(totem);
+      })
+      .catch((error) => console.log(error));
+    } else {
+      setTotem(totemState);
+      confirm("Usando el state");
+    }
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setTotems((prevState) => ({
+    setTotem((prevState) => ({
       ...prevState,
       [name]: value,
       [event.target.name]:
@@ -47,9 +58,9 @@ const TotemEdit = () => {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      setTotems((prevState) => ({
+      setTotem((prevState) => ({
         ...prevState,
-        imagen: reader.result,
+        urlLogo: reader.result,
       }));
     };
 
@@ -60,7 +71,7 @@ const TotemEdit = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { nombre, numeroPlantilla, imagen, idUsuario } = totems;
+    const { nombre, numeroPlantilla, imagen, idUsuario } = totem;
 
     if (!nombre || !numeroPlantilla || !idUsuario) {
       alert("Por favor llene todos los campos del formulario.");
@@ -71,10 +82,10 @@ const TotemEdit = () => {
       return;
     }
     axios
-      .put(`https://localhost:7264/api/Totems/${id}`, totems, {
+      .put(`https://localhost:7264/api/Totems/${id.slice(1)}`, totem, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`, // Agregar el token al encabezado
+          Authorization: `Bearer ${"sdfsf"}`, // Agregar el token al encabezado
         },
       })
       .then((response) => {
@@ -107,7 +118,7 @@ const TotemEdit = () => {
             type="text"
             id="nombre"
             name="nombre"
-            value={totems.nombre || ""}
+            value={totem.nombre || ""}
             onChange={handleChange}
             className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
@@ -123,7 +134,7 @@ const TotemEdit = () => {
             type="number"
             id="numeroPlantilla"
             name="numeroPlantilla"
-            value={totems.numeroPlantilla}
+            value={totem.numeroPlantilla}
             onChange={handleChange}
             className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
@@ -137,27 +148,12 @@ const TotemEdit = () => {
           </label>
           <input
             type="file"
-            id="imagen"
-            name="imagen"
+            id="urlLogo"
+            name="urlLogo"
+            src={totem.urlLogo}
             onChange={handleChange}
             className="border rounded py-2 px
 -3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="idUsuario"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            id Usuario
-          </label>
-          <input
-            type="number"
-            id="idUsuario"
-            name="idUsuario"
-            value={totems.idUsuario}
-            onChange={handleChange}
-            className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="mb-4">

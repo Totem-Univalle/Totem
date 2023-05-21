@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { useSelector } from "react-redux";
 
 function UserUpdateForm() {
-    const token = localStorage.getItem('token');
-  const { idUsuario } = useParams();
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
@@ -13,25 +12,13 @@ function UserUpdateForm() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const user = useSelector((state) => state.user);
   useEffect(() => {
-    axios
-      /* .get(`https://localhost:7264/api/Usuarios/${idUsuario}`) */
-      .get(`https:/totemapi.azurewebsites.net/api/Usuarios/${idUsuario.slice(1)}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        const user = response.data;
-        console.log(user);
-        setNombre(user.nombre);
-        setApellido(user.apellido);
-        setEmail(user.email);
-      })
-      .catch((error) => {
-        setError("Error al cargar los datos del usuario. : " + error.message);
-      });
-  }, [idUsuario]);
+    confirm("Entro");
+    setNombre(user.nombre);
+    setApellido(user.apellido);
+    setEmail(user.email);
+  }, []);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -45,7 +32,7 @@ function UserUpdateForm() {
 
     try {
       const response = await axios.put(
-        `https://localhost:7264/api/Usuarios/${idUsuario}/update-user`,
+        `https://localhost:7264/api/Usuarios/${user.idUsuario}/update-user`,
         {
           nombre,
           apellido,

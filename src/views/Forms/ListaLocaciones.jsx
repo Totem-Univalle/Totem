@@ -2,24 +2,34 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addLocations } from "../../components/redux/locationSlice";
 
 function LocacionesTable() {
+  const dispatch = useDispatch();
+  const stateLocations = useSelector((state) => state.locations);
+
   const [locaciones, setLocaciones] = useState([]);
   const { id } = useParams();
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
-
+    if(stateLocations.locaciones === null){
       fetch("https://totemapi.azurewebsites.net/api/Locaciones")
       .then((response) => response.json())
-      .then((data) => setLocaciones(data))
+      .then((data) => {
+        const locationf = data.filter(
+          (locacion) => locacion.idTotem == id.slice(1)
+        );
+        dispatch(addLocations(locationf));
+        setLocaciones(locationf);
+      })
       .catch((error) => console.log(error));
-
+    } else {
+      setLocaciones(stateLocations.locaciones);
+      console.log(locaciones);
+      confirm("usando el state de locationes");
+    }
   }, []);
-
-  const filteredLocaciones = locaciones.filter(
-    (locacion) => locacion.idTotem == id.slice(1)
-  );
 
   const handleDelete = (id) => {
     axios
@@ -46,7 +56,7 @@ function LocacionesTable() {
         </tr>
       </thead>
       <tbody className="text-gray-600 text-sm font-light">
-        {filteredLocaciones.map((locacion) => (
+        {locaciones.map((locacion) => (
           <tr className="border-b border-gray-200 hover:bg-gray-100">
             <td className="py-3 px-1 text-left whitespace-nowrap w-200">
               <div className="flex items-center">

@@ -2,19 +2,23 @@ import "./styleCard.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { deleteLocations } from "../../components/redux/locationSlice";
 
 export function Advertising(props) {
   const MySwal = withReactContent(Swal);
 
   const handleDelete = (id) => {
-    axios
-      .delete(`https://totemapi.azurewebsites.net/api/Publicidad/${id}`)
-      .then((response) => {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+    console.log(id);
+    fetch(`https://totemapi.azurewebsites.net/api/Publicidad/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(deleteLocations());
+        MySwal.fire("Deleted!", "Your file has been deleted.", "success");
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -32,7 +36,7 @@ export function Advertising(props) {
               confirmButtonText: "Yes, delete it!",
             }).then((result) => {
               if (result.isConfirmed) {
-                handleDelete(props.id);
+                handleDelete(props.idPublicidad);
               }
             })
           }

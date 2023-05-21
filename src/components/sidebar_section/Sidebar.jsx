@@ -5,72 +5,78 @@ import { MdEditLocationAlt } from "react-icons/md";
 import { HiTemplate, HiHome } from "react-icons/hi";
 import { MdContactMail } from "react-icons/md";
 import { BsQuestionCircle } from "react-icons/bs";
-import { Fragment } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Fragment, useEffect } from "react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
-const totem = JSON.parse(localStorage.getItem("totem"));
-
-const navegation = [
-  {
-    name: "Panel Totems",
-    current: false,
-    icon: HiHome,
-    path: `/Panel`,
-  },
-  {
-    name: "Locaciones",
-    current: false,
-    icon: MdEditLocationAlt,
-    path: `/ListaLocaciones/:${totem === null ? 0 : totem.idTotem}`,
-  },
-  { name: "Plantillas", current: false, icon: HiTemplate, path: "/Plantillas" },
-  {
-    name: "Publicidad",
-    current: false,
-    icon: MdContactMail,
-    path: `/Publicidad/:${totem === null ? 0 : totem.idTotem}`,
-  },
-  {
-    name: "Logos",
-    current: false,
-    icon: HiTemplate,
-    path: "/Logos",
-  },
-  /* {
-    name: "Admins",
-    current: false,
-    icon: MdContactMail,
-    path: "/AdminForm",
-  },
-  {
-    name: "Totems",
-    current: false,
-    icon: HiTemplate,
-    path: "/TotemForm",
-  }, */
-];
+import { useSelector } from "react-redux";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-
 const Sidebar = () => {
+  const totem = useSelector((state) => state.totem);
+  const navigate = useNavigate();
+
+  const navegation = [
+    {
+      name: "Datos del Totem",
+      current: false,
+      icon: HiHome,
+      path: `/TotemEdit/:${totem.idTotem}`,
+    },
+    {
+      name: "Panel Totems",
+      current: false,
+      icon: HiHome,
+      path: `/Panel`,
+    },
+    {
+      name: "Locaciones",
+      current: false,
+      icon: MdEditLocationAlt,
+      path: `/ListaLocaciones/:${totem === null ? 0 : totem.idTotem}`,
+    },
+    {
+      name: "Plantillas",
+      current: false,
+      icon: HiTemplate,
+      path: "/Plantillas",
+    },
+    {
+      name: "Publicidad",
+      current: false,
+      icon: MdContactMail,
+      path: `/Publicidad/:${totem === null ? 0 : totem.idTotem}`,
+    },
+    {
+      name: "Logos",
+      current: false,
+      icon: HiTemplate,
+      path: "/Logos",
+    },
+    /* {
+      name: "Admins",
+      current: false,
+      icon: MdContactMail,
+      path: "/AdminForm",
+    },
+    {
+      name: "Totems",
+      current: false,
+      icon: HiTemplate,
+      path: "/TotemForm",
+    }, */
+  ];
+
   const location = useLocation();
 
   // Verifica si la ruta actual es "/Login"
   if (
     location.pathname === "/" ||
     location.pathname === "/ForgotPassword" ||
-    location.pathname === "/Panel"  ||
+    location.pathname === "/Panel" ||
     location.pathname === "/Totems"
   ) {
     return null; // Retorna null para ocultar el sidebar
@@ -83,6 +89,7 @@ const Sidebar = () => {
             src="https://cdn-icons-png.flaticon.com/512/2209/2209054.png"
             alt=""
             className="Image Name"
+            /UserUpdateForm
           />
         </Link> */}
       {/* Profile dropdown */}
@@ -92,7 +99,11 @@ const Sidebar = () => {
             <span className="sr-only">Open user menu</span>
             <img
               className="h-12 w-12 rounded-full"
-              src={totem === null ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : totem.urlLogo}
+              src={
+                totem === null
+                  ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                  : totem.urlLogo
+              }
               alt=""
             />
           </Menu.Button>
@@ -110,7 +121,7 @@ const Sidebar = () => {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="/UserUpdateForm/:1"
+                  onClick={() => navigate("/UserUpdateForm")}
                   className={classNames(
                     active ? "bg-gray-100" : "",
                     "block px-4 py-2 text-sm text-gray-700"
@@ -156,10 +167,14 @@ const Sidebar = () => {
           <ul className="menuList grid">
             {navegation.map((item) => (
               <li className="listItem">
-                <Link to={item.path} className="menuLink" flex>
+                <a
+                  onClick={() => navigate(item.path)}
+                  className="menuLink cursor-pointer"
+                  flex
+                >
                   <item.icon className="icon" />
                   <span className="smallText">{item.name}</span>
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
