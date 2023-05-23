@@ -4,6 +4,8 @@ import Carrusel from "./Carrusel";
 import { pics } from "./Data";
 
 export function Template1() {
+  
+
   return (
     <>
       <section className="relative block h-[50vh] bg-gray-900">

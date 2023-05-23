@@ -19,6 +19,7 @@ import TotemEdit from "../../views/Forms/TotemEdit";
 import LocacionesTable from "../../views/Forms/ListaLocaciones";
 import Locacion from "../../views/Forms/Locacion";
 import { useSelector } from "react-redux";
+import DisplayTotem from "../../views/TotemTemplates/DisplayTotem";
 
 const Routing = () => {
   const user = useSelector((state) => state.user);
@@ -43,6 +44,7 @@ const Routing = () => {
         <Route index element={<Login />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/Totems" element={<SelectTotem/>} />
+        <Route path="/Template" element={<DisplayTotem/>} />
         <Route path="*" element={<Navigate to="/" replace/>} />
       </Routes>
     </div>
