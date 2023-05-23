@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "tailwindcss/tailwind.css";
 
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTotem } from "../../components/redux/totemSlice";
+import { addTotem, deleteTotem } from "../../components/redux/totemSlice";
 import { deleteLocations } from "../../components/redux/locationSlice";
 import { deletePublicidades } from "../../components/redux/publicidadSlice";
 
@@ -32,6 +32,21 @@ const PanelTotem = () => {
     fetchData();
   }, []);
 
+  function chargeDataTotem(id){
+    fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const totem = {
+          idTotem: data.idTotem,
+          nombre: data.nombre,
+          numeroPlantilla: data.numeroPlantilla,
+          urlLogo: data.urlLogo
+        }
+        dispatch(addTotem(totem));
+      })
+      .catch((error) => console.log(error));
+  }
+
   return (
     <>
       <div className="flex-1 flex flex-col justify-center items-center">
@@ -41,6 +56,7 @@ const PanelTotem = () => {
               if (user.loginMode === 'admin') {
                 navigate(`/TotemEdit/:${idTotem}`);
               } else {
+                chargeDataTotem(idTotem);
                 navigate(`/Template`);
               }
             }}>
