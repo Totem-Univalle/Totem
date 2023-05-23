@@ -37,7 +37,13 @@ const PanelTotem = () => {
       <div className="flex-1 flex flex-col justify-center items-center">
         <div className="flex flex-col sm:flex-row justify-end gap-4">
           {totems.map(({ idTotem, urlLogo, nombre }) => (
-            <a onClick={() => navigate(`/TotemEdit/:${idTotem}`)}>
+            <a onClick={() => {
+              if (user.loginMode === 'admin') {
+                navigate(`/TotemEdit/:${idTotem}`);
+              } else {
+                navigate(`/Template`);
+              }
+            }}>
               <div className="card hover:bg-gray-200 shadow-2xl rounded-lg transition delay-300 duration-300 ease-in-out cursor-pointer p-4">
                 <div className="flex flex-row justify-center">
                   <img className="w-40 image rounded-lg" src={urlLogo} />

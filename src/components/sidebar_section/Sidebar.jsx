@@ -77,7 +77,8 @@ const Sidebar = () => {
     location.pathname === "/" ||
     location.pathname === "/ForgotPassword" ||
     location.pathname === "/Panel" ||
-    location.pathname === "/Totems"
+    location.pathname === "/Totems" ||
+    location.pathname === "/Template"
   ) {
     return null; // Retorna null para ocultar el sidebar
   }

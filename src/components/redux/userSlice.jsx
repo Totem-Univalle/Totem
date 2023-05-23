@@ -8,6 +8,7 @@ const US = {
   nombre: null,
   apellido: null,
   email: null,
+  loginMode: null,
 };
 
 export const userSlice = createSlice({
@@ -22,6 +23,7 @@ export const userSlice = createSlice({
       state.nombre = action.payload.nombre;
       state.apellido = action.payload.apellido;
       state.email = action.payload.email;
+      state.loginMode = action.payload.loginMode;
     },
     deleteUser: (state, action) => {
       state.idUsuario = null;
@@ -31,6 +33,7 @@ export const userSlice = createSlice({
       state.nombre = null;
       state.apellido = null;
       state.email = null;
+      state.loginMode = null;
     },
   },
 });

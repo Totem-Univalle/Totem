@@ -52,7 +52,8 @@ export default function Login() {
               token: data.token,
               nombre: data.user.nombre,
               apellido: data.user.apellido,
-              email: data.user.email
+              email: data.user.email,
+              loginMode: "admin"
             };
             dispatch(addUser(user));
             navigate('/Panel');
@@ -78,7 +79,8 @@ export default function Login() {
               token: data.token,
               nombre: data.user.nombre,
               apellido: data.user.apellido,
-              email: data.user.email
+              email: data.user.email,
+              loginMode: "totem"
             };
             dispatch(addUser(user));
             navigate('/Panel');
