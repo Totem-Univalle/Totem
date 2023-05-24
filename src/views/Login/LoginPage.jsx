@@ -56,7 +56,13 @@ export default function Login() {
               loginMode: "admin"
             };
             dispatch(addUser(user));
-            navigate('/Panel');
+            if(user.rol == 1){
+              navigate('/Panel');
+            }
+            else{
+              navigate('/SuperAdminView')
+            }
+            
           })
           .catch((error) => console.error(error));
 
