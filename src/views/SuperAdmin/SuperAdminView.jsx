@@ -7,7 +7,7 @@ const SuperAdminView = () => {
     return (
       <>
       <AdminRegistrationForm/>
-      <AdminTable/>
+    
       </>
       
     )
