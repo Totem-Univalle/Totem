@@ -2,21 +2,24 @@ import "./App.css";
 import Sidebar from "./components/sidebar_section/Sidebar";
 import "./App.css";
 import Routing from "./components/routes/routing";
-import { BrowserRouter } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function App() {
-  if (location.pathname === "/Template") {
+  const location = useLocation();
+
+  if (location.pathname.includes("/Template")) {
     return (
-      <>
-        <Sidebar />
-        <Routing />
-      </>
+      <div className="w-screen h-screen">
+        <Routing/>
+      </div>
     ); // Retorna null para ocultar el sidebar
   }
   return (
     <div className="containerV">
       <Sidebar />
-      <Routing />
+      <div className="mainContent">
+        <Routing/>
+      </div>
     </div>
   );
 }

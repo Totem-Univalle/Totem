@@ -101,7 +101,7 @@ export default function Login() {
   return (
     <>
       <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+        <div className="">
           <div>
             <img
               className="mx-auto h-12 w-auto"
@@ -112,12 +112,10 @@ export default function Login() {
               Inicia sesión en tu cuenta
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Or{" "}
               <a
-                href="#"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
-                start your 14-day free trial
+                Proyecto Totem Univalle
               </a>
             </p>
           </div>

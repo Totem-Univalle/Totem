@@ -25,7 +25,6 @@ import SuperAdminView from "../../views/SuperAdmin/SuperAdminView";
 const Routing = () => {
   const user = useSelector((state) => state.user);
   return (
-    <div className="mainContent">
       <Routes>
         <Route element={<PrivateRoute token={user.token}/>}>
           <Route path="/Panel" element={<PanelTotem />} />
@@ -50,7 +49,6 @@ const Routing = () => {
         <Route path="/Template" element={<DisplayTotem/>} />
         <Route path="*" element={<Navigate to="/" replace/>} />
       </Routes>
-    </div>
   );
 };
 
