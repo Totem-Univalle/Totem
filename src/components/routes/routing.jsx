@@ -21,6 +21,7 @@ import Locacion from "../../views/Forms/Locacion";
 import { useSelector } from "react-redux";
 import DisplayTotem from "../../views/TotemTemplates/DisplayTotem";
 import SuperAdminView from "../../views/SuperAdmin/SuperAdminView";
+import EditLocacion from "../../views/Forms/EditLocaciones";
 
 const Routing = () => {
   const user = useSelector((state) => state.user);
@@ -33,7 +34,7 @@ const Routing = () => {
           <Route path="/ListaLocaciones/:id" element={<LocacionesTable />} />
           <Route path="/Plantillas" element={<SeleccionPlantilla />} />
           <Route path="/Logos" element={<Logos />} />
-          <Route path="/EditLocacion/:id" element={<Locacion />} />
+          <Route path="/EditLocacion/:id" element={ <EditLocacion/>} />
           {/*<Route path="/AdminForm" element={<AdminForm />} />
           <Route path="/TotemForm" element={<TotemForm />} />*/}
           <Route path="/TotemEdit/:id" element={<TotemEdit/>} />
@@ -41,6 +42,7 @@ const Routing = () => {
           <Route path="/UserUpdateForm" element={<UserUpdateForm />} />
           <Route path="/UserUpdateForm" element={<UserUpdateForm />} />
           <Route path="/SuperAdminView" element={<SuperAdminView />} />
+        
         </Route>
 
         <Route index element={<Login />} />
