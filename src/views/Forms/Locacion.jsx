@@ -11,15 +11,21 @@ function Locacion() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const formData = new FormData();
     formData.append('nombre', nombre);
     formData.append('descripcion', descripcion);
     formData.append('keywords', keywords);
     formData.append('idTotem', idTotem);
     formData.append('imagenMapa', imagenMapa);
-    formData.append('imagenesCarrucel', imagenesCarrucel);
-
+    
+    // Agregar imágenes de carrusel individualmente
+    if (imagenesCarrucel && imagenesCarrucel.length > 0) {
+      for (let i = 0; i < imagenesCarrucel.length; i++) {
+        formData.append('imagenesCarrucel', imagenesCarrucel[i]);
+      }
+    }
+  
     try {
       const response = await axios.post('https://localhost:7264/api/Locaciones', formData, {
         headers: {
@@ -31,6 +37,7 @@ function Locacion() {
       console.error(error);
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
