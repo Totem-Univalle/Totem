@@ -4,11 +4,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { deleteLocations } from "../../components/redux/locationSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 function EditLocacion() {
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
   const { id } = useParams();
+  const totem = useSelector((state) => state.totem);
+  const dispatch = useDispatch();
   const [locacion, setLocacion] = useState({
     nombre: "",
     descripcion: "",
@@ -91,7 +95,10 @@ function EditLocacion() {
           showConfirmButton: false,
           timer: 1700,
         });
-        navigate(`/ListaLocaciones/:${locacion.idTotem}`);
+      
+        
+        dispatch(deleteLocations());
+        navigate(`/ListaLocaciones/:${totem.idTotem}`);
 
         //console.log(response);
       })

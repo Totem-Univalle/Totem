@@ -9,9 +9,7 @@ const TotemEdit = () => {
 
   const { id } = useParams();
   const [mensajeConfirmacion, setMensajeConfirmacion] = useState(null);
-  const totemState = useSelector(
-    (state) => state.totem
-  );
+  const totemState = useSelector((state) => state.totem);
   const [totem, setTotem] = useState({
     nombre: totemState.nombre || "",
     numeroPlantilla: totemState.numeroPlantilla || "",
@@ -19,20 +17,22 @@ const TotemEdit = () => {
   });
 
   useEffect(() => {
-    if(totemState.idTotem === null){
+    if (totemState.idTotem === null) {
       fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id.slice(1)}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const totem = {
-          idTotem: data.idTotem,
-          nombre: data.nombre,
-          numeroPlantilla: data.numeroPlantilla,
-          urlLogo: data.urlLogo
-        }
-        dispatch(addTotem(totem));
-        setTotem(totem);
-      })
-      .catch((error) => console.log(error));
+        .then((response) => response.json())
+        .then((data) => {
+          const totem = {
+            idTotem: data.idTotem,
+            nombre: data.nombre,
+            numeroPlantilla: data.numeroPlantilla,
+            urlLogo: data.urlLogo,
+
+
+          };
+          dispatch(addTotem(totem));
+          setTotem(totem);
+        })
+        .catch((error) => console.log(error));
     } else {
       setTotem(totemState);
       confirm("Usando el state");
@@ -71,9 +71,9 @@ const TotemEdit = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { nombre, numeroPlantilla, imagen, idUsuario } = totem;
+    const { nombre, numeroPlantilla, imagen } = totem;
 
-    if (!nombre || !numeroPlantilla || !idUsuario) {
+    if (!nombre || !numeroPlantilla) {
       alert("Por favor llene todos los campos del formulario.");
       return;
     }
@@ -152,8 +152,7 @@ const TotemEdit = () => {
             name="urlLogo"
             src={totem.urlLogo}
             onChange={handleChange}
-            className="border rounded py-2 px
--3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
         <div className="mb-4">

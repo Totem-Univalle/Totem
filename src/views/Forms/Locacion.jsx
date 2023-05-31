@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { deleteLocations } from "../../components/redux/locationSlice";
 
 function Locacion() {
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [keywords, setKeywords] = useState('');
@@ -47,6 +49,7 @@ function Locacion() {
           showConfirmButton: false,
           timer: 1700
         });
+        dispatch(deleteLocations());
         navigate(`/ListaLocaciones/:${idTotem}`);
       } catch (error) {
         console.error(error);
