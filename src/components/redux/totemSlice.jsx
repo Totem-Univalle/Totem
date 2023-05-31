@@ -23,9 +23,12 @@ export const totemSlice = createSlice({
       state.urlLogo = null,
       state.numeroPlantilla = null
     },
-
+    editTemplate: (state, action) => {
+      state.numeroPlantilla = action.payload
+      console.log(state.numeroPlantilla);
+    }
   },
 });
 
-export const { addTotem, deleteTotem } = totemSlice.actions;
+export const { addTotem, deleteTotem, editTemplate } = totemSlice.actions;
 export default totemSlice.reducer;

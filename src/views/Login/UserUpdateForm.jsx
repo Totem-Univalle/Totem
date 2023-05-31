@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
 import CryptoJS from "crypto-js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { updateUser } from "../../components/redux/userSlice";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function UserUpdateForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
+  const [institucion, setInstitucion] = useState("");
   const [email, setEmail] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -14,39 +20,49 @@ function UserUpdateForm() {
   const [error, setError] = useState("");
   const user = useSelector((state) => state.user);
   useEffect(() => {
-    confirm("Entro");
     setNombre(user.nombre);
     setApellido(user.apellido);
     setEmail(user.email);
+    setInstitucion(user.institucion);
   }, []);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    confirm("entro");
+    const response = await fetch(
+      `https:/totemapi.azurewebsites.net/api/Usuarios/${user.idUsuario}`
+    );
+    const dataUser = await response.json();
 
-    // Verificar que la nueva contraseña coincida en ambos campos
-    if (newPassword !== confirmPassword) {
-      setError("Las contraseñas no coinciden.");
+    if (
+      dataUser.password !=
+        CryptoJS.MD5(oldPassword).toString(CryptoJS.enc.Hex) ||
+      newPassword != confirmPassword
+    ) {
+      confirm("Password error");
       return;
     }
+
     const hashPass = CryptoJS.MD5(newPassword).toString(CryptoJS.enc.Hex);
+    dataUser.email = email;
+    dataUser.nombre = nombre;
+    dataUser.apellido = apellido;
+    dataUser.password = hashPass;
+    dataUser.institucion = institucion;
+    fetch(`https:/totemapi.azurewebsites.net/api/Usuarios/${user.idUsuario}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataUser),
+    })
+      .then((response) => {
+        dispatch(updateUser(dataUser));
 
-    try {
-      const response = await axios.put(
-        `https://localhost:7264/api/Usuarios/${user.idUsuario}/update-user`,
-        {
-          nombre,
-          apellido,
-          email,
-          pass: hashPass,
-        }
-      );
-
-      if (response.status === 204) {
-        console.log("Datos actualizados exitosamente");
-      }
-    } catch (error) {
-      setError("Error al actualizar los datos del usuario.");
-    }
+        confirm("Update Yes");
+        navigate("/Panel");
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -86,6 +102,17 @@ function UserUpdateForm() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2">
+            Institucion:
+          </label>
+          <input
+            type="text"
+            value={institucion}
+            onChange={(e) => setInstitucion(e.target.value)}
             className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>

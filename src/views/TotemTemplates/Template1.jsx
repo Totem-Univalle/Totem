@@ -41,11 +41,16 @@ export function Template1() {
       keysb = "";
       images = null;
       let reject = ["la", "las", "el", "los"];
+      let signs = ['?', '¿', '.', ','];
       let filteredKeys = keys;
 
       for (let i = 0; i < reject.length; i++) {
         filteredKeys = filteredKeys.filter((item) => item !== reject[i]);
       }
+      for(let element in filteredKeys) {
+        for(let i in signs){
+        }
+      };
 
       navigate('/Template?keys='+filteredKeys.toString());
     }

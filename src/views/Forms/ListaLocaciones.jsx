@@ -13,21 +13,19 @@ function LocacionesTable() {
   const { id } = useParams();
 
   useEffect(() => {
-    if(stateLocations.locaciones === null){
+    if (stateLocations.locaciones === null) {
       fetch("https://totemapi.azurewebsites.net/api/Locaciones")
-      .then((response) => response.json())
-      .then((data) => {
-        const locationf = data.filter(
-          (locacion) => locacion.idTotem == id.slice(1)
-        );
-        dispatch(addLocations(locationf));
-        setLocaciones(locationf);
-      })
-      .catch((error) => console.log(error));
+        .then((response) => response.json())
+        .then((data) => {
+          const locationf = data.filter(
+            (locacion) => locacion.idTotem == id.slice(1)
+          );
+          dispatch(addLocations(locationf));
+          setLocaciones(locationf);
+        })
+        .catch((error) => console.log(error));
     } else {
       setLocaciones(stateLocations.locaciones);
-      console.log(locaciones);
-      confirm("usando el state de locationes");
     }
   }, []);
 
@@ -51,7 +49,8 @@ function LocacionesTable() {
           <th className="py-3 px-6 text-left">Nombre</th>
           <th className="py-3 px-6 text-left">Descripcion</th>
           <th className="py-3 px-6 text-center">Palabras clave</th>
-          <th className="py-3 px-6 text-center">Image</th>
+          <th className="py-3 px-6 text-center">Mapa</th>
+          <th className="py-3 px-6 text-center">Fotos del Lugar</th>
           <th className="py-3 px-6 text-center">Acciones</th>
         </tr>
       </thead>
@@ -97,6 +96,18 @@ function LocacionesTable() {
                   alt="Client"
                   onClick={() => window.open(locacion.urlMapa, "_blank")}
                 />
+              </div>
+            </td>
+
+            <td class="py-3 px-6 text-center">
+              <div class="flex items-center justify-center">
+                {locacion.urlCarruselImagenes.split(",").map((item, index) => (
+                  <img
+                    class="w-24 h-24 rounded-full border-gray-200 border -m-1 transform hover:scale-125"
+                    src={item}
+                    onClick={() => window.open(item, "_blank")}
+                  />
+                ))}
               </div>
             </td>
 

@@ -25,7 +25,6 @@ export function AdvertisingDisplay() {
       .catch((error) => console.log(error));
     } else {
       setPublicidad(publicidadesState.publicidades);
-      confirm("usando publicidadesState");
     }
   }, []);
 

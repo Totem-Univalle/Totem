@@ -77,7 +77,6 @@ const ForgotPassword = () => {
         title: "Este usuario no existe"
       });
     }
-
   };
 
   return (
