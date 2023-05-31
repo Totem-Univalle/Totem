@@ -21,6 +21,13 @@ export function Template1() {
   const month = ('0' + (date.getMonth() + 1)).slice(-2);
   const day = ('0' + date.getDate()).slice(-2);
   const formattedDate = `${day}/${month}/${year}`;
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  const formattedHours = String(hours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
+
+  const currentTime = formattedHours + ":" + formattedMinutes;
 
   let images;
   let id = totem.idTotem ,keysb = null;
@@ -82,7 +89,7 @@ export function Template1() {
           <figure className="relative h-full w-full">
             <Carrusel className="carrusel" images={imagesFinal==null?pics:imagesFinal} />
             <figcaption className="absolute left-5 top-5 flex w-1/8  justify-items-center rounded-xl  bg-white/75 p-2 shadow-lg shadow-black/5 saturate-200">
-              <p className="text-gray-700">15:05</p>
+              <p className="text-gray-700">{currentTime}</p>
             </figcaption>
             <figcaption className="absolute right-5 top-5 flex w-1/8  justify-items-center rounded-xl  bg-white/75 p-2 shadow-lg shadow-black/5 saturate-200">
               <p className="text-gray-700">{formattedDate}</p>
