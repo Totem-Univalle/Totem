@@ -28,7 +28,7 @@ export function AdvertisingDisplay() {
       confirm("usando publicidadesState");
     }
   }, []);
-
+  console.log(publicidades);
   return (
     <>
       <Modal state={state} changeState={changeModalState}></Modal>
@@ -42,7 +42,7 @@ export function AdvertisingDisplay() {
         <div class="flex flex-wrap justify-center items-center">
           {publicidades.map((publicidad) => (
             <Advertising
-              date="20/07/23"
+              date={publicidad.fechaFin}
               src={publicidad.urlPublicidad}
               idPublicidad={publicidades.idPublicidad}
             />

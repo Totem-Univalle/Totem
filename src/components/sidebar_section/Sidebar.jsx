@@ -79,6 +79,7 @@ const Sidebar = () => {
     location.pathname === "/Panel" ||
     location.pathname === "/Totems" ||
     location.pathname === "/SuperAdminView" ||
+    location.pathname === "/TotemNew" ||
     location.pathname === "/Template"
   ) {
     return null; // Retorna null para ocultar el sidebar

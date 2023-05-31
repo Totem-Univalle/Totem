@@ -54,6 +54,7 @@ const ModalContainer = styled.div`
   height: 800px;
   z-index: 3;
   background: #ffff;
+  overflow: scroll;
   position: relative;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

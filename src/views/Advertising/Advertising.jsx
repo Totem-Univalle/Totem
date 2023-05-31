@@ -7,6 +7,8 @@ import { deleteLocations } from "../../components/redux/locationSlice";
 export function Advertising(props) {
   const MySwal = withReactContent(Swal);
 
+  let endDate = new Date(props.date)
+
   const handleDelete = (id) => {
     console.log(id);
     fetch(`https://totemapi.azurewebsites.net/api/Publicidad/${id}`, {
@@ -48,7 +50,7 @@ export function Advertising(props) {
           Fecha de Expiracion:
         </h1>
         <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer">
-          {props.date}
+          {endDate.toLocaleDateString()}
         </p>
       </div>
       <div class="flex items-center justify-center max-h-96 overflow-hidden">
