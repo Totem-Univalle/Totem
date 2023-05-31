@@ -83,7 +83,7 @@ export function Template2() {
   }
 
   return (
-    <div className="bg-gray-00 h-full">
+    <>
       <Timer time={time} route={'/'}/>
       <Card
         shadow={false}
@@ -126,12 +126,12 @@ export function Template2() {
           />
         </CardBody>
       </Card>
-      <section className="-mt-12 flex h-full flex-col  divide-y px-4 pb-20 pt-4">
+      <section className="-mt-12 flex h-1/2 flex-col  divide-y px-4 pb-20 pt-4">
         <Card className="h-full w-full flex-row">
           <CardHeader
             shadow={false}
             floated={false}
-            className="m-0 w-2/5 shrink-0 rounded-r-none"
+            className="m-0 h-full w-1/2 shrink-0 rounded-r-none"
           >
             <img
               src={data == null?"https://img.freepik.com/vector-premium/navegacion-aplicacion-hay-destino-llegar-al-mapa-gps-destino_403715-36.jpg":data['urlMapa']}
@@ -157,23 +157,21 @@ export function Template2() {
           </CardBody>
         </Card>
       </section>
-      <footer className="w-full h-32 bg-gray-900 p-8">
+      <footer className="w-full h-10 bg-gray-900 p-8 inset-x-0 bottom-0">
         <div className="flex flex-row flex-wrap items-center justify-center gap-x-12 gap-y-6 text-center text-white md:justify-between">
           <div className="flex-column flex">
-            <ClockIcon className="h-6 w-6 text-white" />
             <Typography color="white" className="mb-8 ml-2 font-normal">
               15:00
             </Typography>
           </div>
           <div className="flex-column flex">
-            <CalendarIcon className="h-6 w-6 text-white" />
             <Typography color="white" className="mb-8 ml-2 font-normal">
               {formattedDate}
             </Typography>
           </div>
         </div>
       </footer>
-    </div>
+    </>
   );
 }
 
