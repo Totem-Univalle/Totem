@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 export function Template1() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [time, SetTime] = useState(3000);
+  const [time, SetTime] = useState(15);
   const [browse, SetBrowse] = useState("");
   const [data,setData]=useState(null);
   const [imagesFinal,setImages]=useState(null);
@@ -88,7 +88,7 @@ export function Template1() {
 
   return (
     <>
-      <Timer time={time} route={'/'}/>
+      <Timer time={time} route={'/TotemAdvertising'}/>
       <section className="relative block h-[50vh] bg-gray-900">
         <div className="bg-profile-background absolute top-0 h-full w-full ">
           <figure className="relative h-full w-full">

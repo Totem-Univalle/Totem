@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { useNavigate, useLocation } from "react-router-dom";
 import "tailwindcss/tailwind.css";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +12,8 @@ import { deletePublicidades } from "../../components/redux/publicidadSlice";
 
 const PanelTotem = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const MySwal = withReactContent(Swal);
   dispatch(deleteTotem());
   dispatch(deleteLocations());
   dispatch(deletePublicidades());
@@ -17,7 +21,21 @@ const PanelTotem = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [totems, setTotems] = useState([]);
-  const [error, setError] = useState(null);
+
+  const handleDelete = (id) => {
+    console.log(id);
+    fetch(`https://totemapi.azurewebsites.net/api/Totems/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        dispatch(deleteTotem());
+        MySwal.fire("Deleted!", "Your file has been deleted.", "success");
+        navigate("/Panel");
+      })
+      .then((data) => {})
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,11 +50,7 @@ const PanelTotem = () => {
       }
     };
     fetchData();
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  }, [location]);
 
   function chargeDataTotem(id) {
     fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id}`)
@@ -68,27 +82,51 @@ const PanelTotem = () => {
         )}
         <div className="flex flex-col sm:flex-row justify-end gap-4">
           {totems.map(({ idTotem, urlLogo, nombre }) => (
-            <a
-              onClick={() => {
-                if (user.loginMode === "admin") {
-                  navigate(`/TotemEdit/:${idTotem}`);
-                } else {
-                  chargeDataTotem(idTotem);
-                  navigate(`/Template`);
-                }
-              }}
-            >
-              <div className="card hover:bg-gray-200 shadow-2xl rounded-lg transition delay-300 duration-300 ease-in-out cursor-pointer p-4">
-                <div className="flex flex-row justify-center">
-                  <img className="w-40 image rounded-lg" src={urlLogo} />
+            <div>
+              {user.loginMode === "admin" && (
+                <button
+                  onClick={() =>
+                    MySwal.fire({
+                      title: "Are you sure?",
+                      text: "You won't be able to revert this!",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "Yes, delete it!",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        handleDelete(idTotem);
+                      }
+                    })
+                  }
+                  className="text-white text-xs font-bold rounded-t-lg bg-red-500 inline-block mt--4 ml-80 py-3 px-7 cursor-pointer"
+                >
+                  Eliminar
+                </button>
+              )}
+              <a
+                onClick={() => {
+                  if (user.loginMode === "admin") {
+                    navigate(`/TotemEdit/:${idTotem}`);
+                  } else {
+                    chargeDataTotem(idTotem);
+                    navigate(`/Template`);
+                  }
+                }}
+              >
+                <div className="card hover:bg-gray-200 shadow-2xl rounded-lg transition delay-300 duration-300 ease-in-out cursor-pointer p-4">
+                  <div className="flex flex-row justify-center">
+                    <img className="w-40 image rounded-lg" src={urlLogo} />
 
-                  <div className="mx-6 content px-5 flex flex-col justify-center">
-                    <div className="text-xl">{user.institucion}</div>
-                    <div className="text-md">{nombre}</div>
+                    <div className="mx-6 content px-5 flex flex-col justify-center">
+                      <div className="text-xl">{user.institucion}</div>
+                      <div className="text-md">{nombre}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           ))}
         </div>
       </div>

@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 export function Template2() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [time, SetTime] = useState(3000);
+  const [time, SetTime] = useState(15);
   const [browse, SetBrowse] = useState("");
   const [data, setData] = useState(null);
   const [imagesFinal, setImages] = useState(null);
@@ -101,7 +101,7 @@ export function Template2() {
 
   return (
     <>
-      <Timer time={time} route={"/"} />
+      <Timer time={time} route={"/TotemAdvertising"} />
       <Card
         shadow={false}
         className="max-full relative grid h-[50rem] w-full items-end justify-center overflow-hidden text-center"

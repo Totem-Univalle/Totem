@@ -9,16 +9,17 @@ import withReactContent from "sweetalert2-react-content";
 const SeleccionPlantilla = () => {
   const MySwal = withReactContent(Swal);
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.totem.idTotem);
+  const totemState = useSelector((state) => state.totem);
 
   const [totem, setTotem] = useState([]);
   useEffect(() => {
-    setTotem(id);
-  },[]);
+    setTotem(totemState.numeroPlantilla);
+    console.log(totem);
+  }, []);
 
   const handleSelectPlantilla = (plantillaId) => {
     fetch(
-      `https://totemapi.azurewebsites.net/api/Totems/${id}/numero-plantilla`,
+      `https://totemapi.azurewebsites.net/api/Totems/${totemState.idTotem}/numero-plantilla`,
       {
         method: "PUT",
         headers: {
@@ -31,9 +32,6 @@ const SeleccionPlantilla = () => {
         if (response.ok) {
           dispatch(editTemplate(plantillaId));
           setTotem(plantillaId);
-          console.log(
-            "El número de plantilla se ha actualizado correctamente: " + id
-          );
           MySwal.fire(
             "Platilla por defecto",
             "La informacion del totem se visualizará en la plantilla",
@@ -70,13 +68,14 @@ const SeleccionPlantilla = () => {
           <p className="py-6">Seleccione la plantilla de su preferencia</p>
         </div>
 
-        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-8 px-12 sm:px-0 flex justify-center items-center">
+        <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-8 px-12 sm:px-0 flex justify-center items-center">
           {port.map(({ id, src }) => (
             <div key={id} className="shadow-md shadow-gray-600 rounded-lg">
               <img
                 src={src}
                 alt=""
                 className="rounded-md duration-200 hover:scale-105"
+                style={{ maxHeight: "400px" }}
               />
               <div
                 className={`flex items-center justify-center ${
