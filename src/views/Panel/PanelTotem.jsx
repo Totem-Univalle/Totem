@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "tailwindcss/tailwind.css";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +12,7 @@ import { deletePublicidades } from "../../components/redux/publicidadSlice";
 
 const PanelTotem = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const MySwal = withReactContent(Swal);
   dispatch(deleteTotem());
   dispatch(deleteLocations());
@@ -20,7 +21,6 @@ const PanelTotem = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [totems, setTotems] = useState([]);
-  const [error, setError] = useState(null);
 
   const handleDelete = (id) => {
     console.log(id);
@@ -30,7 +30,7 @@ const PanelTotem = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        dispatch(deleteLocations());
+        dispatch(deleteTotem());
         MySwal.fire("Deleted!", "Your file has been deleted.", "success");
       })
       .catch((error) => console.log(error));
@@ -49,7 +49,7 @@ const PanelTotem = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [location]);
 
   function chargeDataTotem(id) {
     fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id}`)

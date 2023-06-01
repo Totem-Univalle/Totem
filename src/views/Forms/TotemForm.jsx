@@ -26,12 +26,11 @@ function AdminRegistrationForm() {
       .post("https://totemapi.azurewebsites.net/api/Totems", formData)
       .then((response) => {
         console.log(response);
-        setMensajeConfirmacion("El totem se ha creado correctamente.");
-        navigate("/Panel");
       })
       .catch((error) => {
         console.log(error);
       });
+    navigate("/Panel");
 
   }
   const handleImageChange = (e) => {
