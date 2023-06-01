@@ -2,23 +2,23 @@ import "./styleCard.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { deleteLocations } from "../../components/redux/locationSlice";
+import { deletePublicidades } from "../../components/redux/publicidadSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export function Advertising(props) {
   const MySwal = withReactContent(Swal);
-
+  const navigate = useNavigate();
+  const totem = useSelector((state) => state.totem);
+  const dispatch = useDispatch();
   let endDate = new Date(props.date)
 
   const handleDelete = (id) => {
-    console.log(id);
-    fetch(`https://totemapi.azurewebsites.net/api/Publicidad/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(deleteLocations());
+    axios.delete(`https://totemapi.azurewebsites.net/api/Publicidad/${id}`)
+      .then((response) => {
+        dispatch(deletePublicidades());
         MySwal.fire("Deleted!", "Your file has been deleted.", "success");
+        navigate("/Publicidad/:"+ totem.idTotem);
       })
       .catch((error) => console.log(error));
   };

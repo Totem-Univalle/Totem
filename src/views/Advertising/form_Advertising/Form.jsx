@@ -2,15 +2,18 @@ import React, { useState, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./formStyle.css";
-import { useSelector } from "react-redux";
+import { deletePublicidades } from "../../../components/redux/publicidadSlice";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-const Form = () => {
+const Form = ({CloseMod}) => {
+  const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [files, setFiles] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
   const totem = useSelector((state) => state.totem);
+  
   const dropzoneRef = useRef();
   const inputRef = useRef(null);
   const totemId = totem.idTotem;
@@ -30,7 +33,9 @@ const Form = () => {
       .post("https://totemapi.azurewebsites.net/api/Publicidad", formData)
       .then((response) => {
         console.log(response);
-        setMensajeConfirmacion("La publicidad se ha creado correctamente.");
+        dispatch(deletePublicidades());
+        // navigate("/Publicidad/:"+totemId);
+        CloseMod();
       })
       .catch((error) => {
         console.log(error);
