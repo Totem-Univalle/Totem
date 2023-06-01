@@ -16,10 +16,11 @@ import { deletePublicidades } from "../../components/redux/publicidadSlice";
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [mensajeConfirmacion, setMensajeConfirmacion] = useState(null);
   dispatch(deleteTotem());
   dispatch(deleteLocations());
   dispatch(deletePublicidades());
- 
+
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleInputChange = (event) => {
@@ -53,19 +54,19 @@ export default function Login() {
               nombre: data.user.nombre,
               apellido: data.user.apellido,
               email: data.user.email,
-              loginMode: "admin"
+              loginMode: "admin",
             };
             dispatch(addUser(user));
-            if(user.rol == 1){
-              navigate('/Panel');
+            if (user.rol == 1) {
+              navigate("/Panel");
+            } else {
+              navigate("/SuperAdminView");
             }
-            else{
-              navigate('/SuperAdminView')
-            }
-            
           })
-          .catch((error) => console.error(error));
-
+          .catch((error) => {
+            setMensajeConfirmacion("Email o contraseña incorrectos");
+            console.error(error);
+          });
       } catch (error) {
         console.error(error);
       }
@@ -86,13 +87,14 @@ export default function Login() {
               nombre: data.user.nombre,
               apellido: data.user.apellido,
               email: data.user.email,
-              loginMode: "totem"
+              loginMode: "totem",
             };
             dispatch(addUser(user));
-            navigate('/Panel');
+            navigate("/Panel");
           })
-          .catch((error) => console.error(error));
-
+          .catch((error) => {
+            setMensajeConfirmacion("Email o contraseña incorrectos");
+          });
       } catch (error) {
         console.error(error);
       }
@@ -112,14 +114,15 @@ export default function Login() {
               Inicia sesión en tu cuenta
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              <a
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
+              <a className="font-medium text-indigo-600 hover:text-indigo-500">
                 Proyecto Totem Univalle
               </a>
             </p>
+            {mensajeConfirmacion && (
+              <p className="text-center text-red-500">{mensajeConfirmacion}</p>
+            )}
           </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-5 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>

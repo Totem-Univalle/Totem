@@ -39,7 +39,6 @@ function UserUpdateForm() {
         CryptoJS.MD5(oldPassword).toString(CryptoJS.enc.Hex) ||
       newPassword != confirmPassword
     ) {
-      confirm("Password error");
       return;
     }
 
@@ -59,7 +58,6 @@ function UserUpdateForm() {
       .then((response) => {
         dispatch(updateUser(dataUser));
 
-        confirm("Update Yes");
         navigate("/Panel");
       })
       .catch((error) => console.log(error));

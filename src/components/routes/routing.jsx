@@ -11,8 +11,7 @@ import ForgotPassword from "../../views/Login/ForgotPassword";
 import PrivateRoute from "./PrivateRoute";
 import SelectTotem from "../../views/TotemsView/SelectTotem";
 import Logos from "../../views/Forms/Logos";
-/* import TotemForm from "../../views/Forms/TotemForm";
-import AdminForm from "../../views/Admin_Form/AdminForm"; */
+import TotemForm from "../../views/Forms/TotemForm";
 import { useLocalStorage } from "react-use";
 import UserUpdateForm from "../../views/Login/UserUpdateForm";
 import TotemEdit from "../../views/Forms/TotemEdit";
@@ -37,6 +36,7 @@ const Routing = () => {
           <Route path="/EditLocacion/:id" element={ <EditLocacion/>} />
           {/*<Route path="/AdminForm" element={<AdminForm />} />
           <Route path="/TotemForm" element={<TotemForm />} />*/}
+          <Route path="/TotemNew" element={<TotemForm />} />
           <Route path="/TotemEdit/:id" element={<TotemEdit/>} />
           <Route path="/Locaciones" element={<FormLocation />} />
           <Route path="/UserUpdateForm" element={<UserUpdateForm />} />

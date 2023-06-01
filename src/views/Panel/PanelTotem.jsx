@@ -22,7 +22,9 @@ const PanelTotem = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https:/totemapi.azurewebsites.net/api/TotemU/${user.idUsuario}`);
+        const response = await axios.get(
+          `https:/totemapi.azurewebsites.net/api/TotemU/${user.idUsuario}`
+        );
         setTotems(response.data);
       } catch (error) {
         setError("Error al cargar los datos del usuario: " + error.message);
@@ -32,7 +34,11 @@ const PanelTotem = () => {
     fetchData();
   }, []);
 
-  function chargeDataTotem(id){
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  function chargeDataTotem(id) {
     fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -40,8 +46,8 @@ const PanelTotem = () => {
           idTotem: data.idTotem,
           nombre: data.nombre,
           numeroPlantilla: data.numeroPlantilla,
-          urlLogo: data.urlLogo
-        }
+          urlLogo: data.urlLogo,
+        };
         dispatch(addTotem(totem));
       })
       .catch((error) => console.log(error));
@@ -50,16 +56,28 @@ const PanelTotem = () => {
   return (
     <>
       <div className="flex-1 flex flex-col justify-center items-center">
+        {user.loginMode === "admin" && (
+          <button
+            className="text-white text-xm font-bold rounded-lg bg-green-500 inline-block mt-4 mb-10 ml-10 mr-auto py-5 px-10 cursor-pointer"
+            onClick={() => {
+              navigate(`/TotemNew`);
+            }}
+          >
+            Nuevo Totem
+          </button>
+        )}
         <div className="flex flex-col sm:flex-row justify-end gap-4">
           {totems.map(({ idTotem, urlLogo, nombre }) => (
-            <a onClick={() => {
-              if (user.loginMode === 'admin') {
-                navigate(`/TotemEdit/:${idTotem}`);
-              } else {
-                chargeDataTotem(idTotem);
-                navigate(`/Template`);
-              }
-            }}>
+            <a
+              onClick={() => {
+                if (user.loginMode === "admin") {
+                  navigate(`/TotemEdit/:${idTotem}`);
+                } else {
+                  chargeDataTotem(idTotem);
+                  navigate(`/Template`);
+                }
+              }}
+            >
               <div className="card hover:bg-gray-200 shadow-2xl rounded-lg transition delay-300 duration-300 ease-in-out cursor-pointer p-4">
                 <div className="flex flex-row justify-center">
                   <img className="w-40 image rounded-lg" src={urlLogo} />
