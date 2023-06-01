@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 function App() {
   const location = useLocation();
 
-  if (location.pathname.includes("/Template")) {
+  if (location.pathname.includes("/Template") || location.pathname.includes("/TotemAdvertising")  ) {
     return (
       <div className="w-screen h-screen">
         <Routing/>

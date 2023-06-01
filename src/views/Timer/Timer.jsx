@@ -13,7 +13,7 @@ const Timer = ({time,route}) => {
       
       const timerId = setTimeout(() => {
         setTimeLeft(timeLeft - 1);
-      }, 1000);
+      }, 100);
       return () => clearTimeout(timerId);
     }
   }, [timeLeft]);

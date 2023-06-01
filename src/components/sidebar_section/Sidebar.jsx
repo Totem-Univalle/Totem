@@ -80,6 +80,7 @@ const Sidebar = () => {
     location.pathname === "/Totems" ||
     location.pathname === "/SuperAdminView" ||
     location.pathname === "/TotemNew" ||
+    location.pathname === "/TotemAdvertising" ||
     location.pathname === "/Template"
   ) {
     return null; // Retorna null para ocultar el sidebar
