@@ -293,7 +293,7 @@ function AdminRegistrationForm() {
                       </td>
                       <td className="p-3 ">
                         <button
-                          className="text-gray-400 hover:text-gray-100 mr-2"
+                          className="text-gray-400 transform hover:scale-110"
                           onClick={() => eliminarUsuario(usuario.idUsuario)}
                         >
                           <svg

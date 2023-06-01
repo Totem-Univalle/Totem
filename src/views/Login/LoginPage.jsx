@@ -19,7 +19,7 @@ export default function Login() {
   dispatch(deleteTotem());
   dispatch(deleteLocations());
   dispatch(deletePublicidades());
-
+ 
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleInputChange = (event) => {
