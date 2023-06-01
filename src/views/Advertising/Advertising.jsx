@@ -17,7 +17,7 @@ export function Advertising(props) {
     axios.delete(`https://totemapi.azurewebsites.net/api/Publicidad/${id}`)
       .then((response) => {
         dispatch(deletePublicidades());
-        MySwal.fire("Deleted!", "Your file has been deleted.", "success");
+        MySwal.fire("Eliminado", "Su publicidad ha sido eliminada correctamente", "success");
         navigate("/Publicidad/:"+ totem.idTotem);
       })
       .catch((error) => console.log(error));
@@ -29,13 +29,13 @@ export function Advertising(props) {
         <button
           onClick={() =>
             MySwal.fire({
-              title: "Are you sure?",
-              text: "You won't be able to revert this!",
+              title: "¿Deseas eliminar esta publicidad?",
+              text: "No podras revertir este cambio",
               icon: "warning",
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
               cancelButtonColor: "#d33",
-              confirmButtonText: "Yes, delete it!",
+              confirmButtonText: "Eliminar",
             }).then((result) => {
               if (result.isConfirmed) {
                 handleDelete(props.idPublicidad);

@@ -20,12 +20,12 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const navegation = [
-    {
+    /* {
       name: "Datos del Totem",
       current: false,
       icon: HiHome,
       path: `/TotemEdit/:${totem.idTotem}`,
-    },
+    }, */
     {
       name: "Panel Totems",
       current: false,

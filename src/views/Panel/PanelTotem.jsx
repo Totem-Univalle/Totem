@@ -30,7 +30,7 @@ const PanelTotem = () => {
     })
       .then((response) => {
         dispatch(deleteTotem());
-        MySwal.fire("Deleted!", "Your file has been deleted.", "success");
+        MySwal.fire("Eliminado", "YSe elimino el totem correctamente", "success");
         navigate("/Panel");
       })
       .then((data) => {})
@@ -87,13 +87,13 @@ const PanelTotem = () => {
                 <button
                   onClick={() =>
                     MySwal.fire({
-                      title: "Are you sure?",
-                      text: "You won't be able to revert this!",
+                      title: "¿Deseas eliminar este totem?",
+                      text: "Todas sus locaciónes y publicidades seran eliminadas tambien",
                       icon: "warning",
                       showCancelButton: true,
                       confirmButtonColor: "#3085d6",
                       cancelButtonColor: "#d33",
-                      confirmButtonText: "Yes, delete it!",
+                      confirmButtonText: "Eliminar",
                     }).then((result) => {
                       if (result.isConfirmed) {
                         handleDelete(idTotem);

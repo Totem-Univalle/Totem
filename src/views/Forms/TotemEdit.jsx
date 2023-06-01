@@ -26,8 +26,6 @@ const TotemEdit = () => {
             nombre: data.nombre,
             numeroPlantilla: data.numeroPlantilla,
             urlLogo: data.urlLogo,
-
-
           };
           dispatch(addTotem(totem));
           setTotem(totem);
@@ -35,7 +33,6 @@ const TotemEdit = () => {
         .catch((error) => console.log(error));
     } else {
       setTotem(totemState);
-      confirm("Usando el state");
     }
   }, []);
 
@@ -102,7 +99,9 @@ const TotemEdit = () => {
       });
   };
   return (
-    <div className="container mx-auto">
+    <div className="flex items-center justify-center">
+      <img src="https://scontent.fcbb1-1.fna.fbcdn.net/v/t39.30808-6/334716564_231810255934195_1860557887752353475_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_ohc=egh29c1C7H4AX8gKsEb&_nc_ht=scontent.fcbb1-1.fna&oh=00_AfByQqD2ILMdRHA7t3_yq5BZ52m06RLWix0NiW0KGfZRBA&oe=647D91D6"></img>
+      {/* <div className="container mx-auto">
       <p className="text-4xl font-bold inline border-b-4 border-gray-500">
         Editar Totem
       </p>
@@ -167,6 +166,7 @@ const TotemEdit = () => {
           {mensajeConfirmacion && <p>{mensajeConfirmacion}</p>}
         </div>
       </form>
+    </div> */}
     </div>
   );
 };
