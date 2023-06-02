@@ -1,10 +1,10 @@
 :root {
-  --PrimaryColor: #913D61;
-  --HoverColor: hsl(347, 42%, 64%);
-  --paleGreen: hsl(359, 36%, 79%);
+  --PrimaryColor: #087ddd;
+  --HoverColor: hsl(219, 65%, 56%);
+  --paleGreen: hsl(0, 0%, 100%);
   --whiteColor: #151515;
   --blackColor: hsl(0, 0%, 18%);
-  --textColor: hsl(240, 1%, 48%);
+  --textColor: hwb(0 85% 15%);
   --bgColor: hsl(43, 4%, 96%);
   --greyText: rgb(190, 190, 190);
   --inputColor: hsl(330, 12%, 97%);

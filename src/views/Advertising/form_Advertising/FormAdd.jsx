@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Form from "./Form";
 export function Modal({state, changeState}) {
+  const closeModal = () => {
+    changeState(false);
+  };
   return (
     <>
       {state && (
@@ -10,7 +13,7 @@ export function Modal({state, changeState}) {
             <ModalHead>
               <h3>Nueva publicidad</h3>
             </ModalHead>
-            <CloseButton onClick={() => changeState(false)}>
+            <CloseButton onClick={closeModal}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -22,7 +25,7 @@ export function Modal({state, changeState}) {
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
               </svg>
             </CloseButton>
-            <Form></Form>
+            <Form CloseMod={closeModal}></Form>
           </ModalContainer>
         </Overlay>
       )}
@@ -54,6 +57,7 @@ const ModalContainer = styled.div`
   height: 800px;
   z-index: 3;
   background: #ffff;
+  overflow: scroll;
   position: relative;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

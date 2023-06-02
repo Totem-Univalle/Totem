@@ -1,74 +1,136 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { useNavigate, useLocation } from "react-router-dom";
+import "tailwindcss/tailwind.css";
 
-import t1 from "../../assets/totem2.jpg";
-import 'tailwindcss/tailwind.css';
+import { useSelector, useDispatch } from "react-redux";
+import { addTotem, deleteTotem } from "../../components/redux/totemSlice";
+import { deleteLocations } from "../../components/redux/locationSlice";
+import { deletePublicidades } from "../../components/redux/publicidadSlice";
 
 const PanelTotem = () => {
-  const projects = [
-    {
-      id: 1,
-      image: t1,
-      title: "Univalle",
-      estado: "Activo",
-      ubicacion: "Tiquipaya",
-      style: "shadow-orange-500",
-    },
-    {
-      id: 2,
-      image: t1,
-      title: "Tiquipaya",
-      estado: "Activo",
-      ubicacion: "Tiquipaya",
-      style: "shadow-blue-500",
-    },
-    {
-      id: 3,
-      image: t1,
-      title: "Univalle",
-      estado: "Activo",
-      ubicacion: "Tiquipaya",
-      style: "shadow-yellow-500",
-    },
-    {
-      id: 4,
-      image: t1,
-      title: "Alcaldia",
-      estado: "Activo",
-      ubicacion: "Tiquipaya",
-      style: "shadow-blue-500",
-    },
-  ];
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const MySwal = withReactContent(Swal);
+  dispatch(deleteTotem());
+  dispatch(deleteLocations());
+  dispatch(deletePublicidades());
+
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const [totems, setTotems] = useState([]);
+
+  const handleDelete = (id) => {
+    console.log(id);
+    fetch(`https://totemapi.azurewebsites.net/api/Totems/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        dispatch(deleteTotem());
+        MySwal.fire("Eliminado", "YSe elimino el totem correctamente", "success");
+        navigate("/Panel");
+      })
+      .then((data) => {})
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https:/totemapi.azurewebsites.net/api/TotemU/${user.idUsuario}`
+        );
+        setTotems(response.data);
+      } catch (error) {
+        setError("Error al cargar los datos del usuario: " + error.message);
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [location]);
+
+  function chargeDataTotem(id) {
+    fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const totem = {
+          idTotem: data.idTotem,
+          nombre: data.nombre,
+          numeroPlantilla: data.numeroPlantilla,
+          urlLogo: data.urlLogo,
+        };
+        dispatch(addTotem(totem));
+      })
+      .catch((error) => console.log(error));
+  }
 
   return (
-    <div>
-        <div className="pb-8">
-          <p className="text-4xl font-bold inline border-b-4 border-gray-500">
-            Centro de Instituciones
-          </p>
-        </div>
-        <div className="grid gap-8 lg:gap-14 lg:grid-cols-2 ">
-          {projects.map(({ id, image, title, estado, ubicacion }) => (
-            <div
-              key={id}
-              className="max-w-lg flex shadow-lg shadow-gray-600  duration-500 rounded-2xl overflow-hidden font-semibold"
-            >
-              <img src={image} alt={title} className="w-3/3" />
-              <div className="w-2/3 flex flex-col items-left justify-evenly p-1">
-                <button className="md:text-right text-white bg-gradient-to-b to-gray to-gray-500 mx-auto flex items-center rounded-md  duration-300">
-                  Compañia : {title}
+    <>
+      <div className="flex-1 flex flex-col justify-center items-center">
+        {user.loginMode === "admin" && (
+          <button
+            className="text-white text-xm font-bold rounded-lg bg-green-500 inline-block mt-4 mb-10 ml-10 mr-auto py-5 px-10 cursor-pointer"
+            onClick={() => {
+              navigate(`/TotemNew`);
+            }}
+          >
+            Nuevo Totem
+          </button>
+        )}
+        <div className="flex flex-col sm:flex-row justify-end gap-4">
+          {totems.map(({ idTotem, urlLogo, nombre }) => (
+            <div>
+              {user.loginMode === "admin" && (
+                <button
+                  onClick={() =>
+                    MySwal.fire({
+                      title: "¿Deseas eliminar este totem?",
+                      text: "Todas sus locaciónes y publicidades seran eliminadas tambien",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "Eliminar",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        handleDelete(idTotem);
+                      }
+                    })
+                  }
+                  className="text-white text-xs font-bold rounded-t-lg bg-red-500 inline-block mt--4 ml-80 py-3 px-7 cursor-pointer"
+                >
+                  Eliminar
                 </button>
-                <p className="text-lg font-semibold md:text-center ">
-                  Estado : {estado}
-                </p>
+              )}
+              <a
+                onClick={() => {
+                  if (user.loginMode === "admin") {
+                    navigate(`/TotemEdit/:${idTotem}`);
+                  } else {
+                    chargeDataTotem(idTotem);
+                    navigate(`/Template`);
+                  }
+                }}
+              >
+                <div className="card hover:bg-gray-200 shadow-2xl rounded-lg transition delay-300 duration-300 ease-in-out cursor-pointer p-4">
+                  <div className="flex flex-row justify-center">
+                    <img className="w-40 image rounded-lg" src={urlLogo} />
 
-                <p className="text-lg font-semibold md:text-center">
-                  Ubicacion : {ubicacion}
-                </p>
-              </div>
+                    <div className="mx-6 content px-5 flex flex-col justify-center">
+                      <div className="text-xl">{user.institucion}</div>
+                      <div className="text-md">{nombre}</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
           ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default PanelTotem;

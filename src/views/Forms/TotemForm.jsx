@@ -1,20 +1,44 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import "./TotemForm.css";
 
 function AdminRegistrationForm() {
   const [name, setName] = useState("");
-  const [image, setImage] = useState(null);
-  const [admin, setAdmin] = useState("");
-  const [template, setTemplate] = useState("");
-  
+  const [image, setImage] = useState([]);
+  const [logo, setLogo] = useState([]);
+  const [template, setTemplate] = useState(1);
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   function handleSubmit(event) {
     event.preventDefault();
-    
+    const formData = new FormData();
+    formData.append("nombre", name);
+    formData.append("imagen", logo);
+    formData.append("numeroPlantilla", template);
+    formData.append("idUsuario", user.idUsuario);
+    console.log(name);
+    console.log(user.idUsuario);
+    console.log(logo);
+    console.log(template);
+    axios
+      .post("https://totemapi.azurewebsites.net/api/Totems", formData)
+      .then((response) => {
+        console.log(response);
+        //setMensajeConfirmacion("El totem se ha creado correctamente.");
+        navigate("/Panel");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   }
   const handleImageChange = (e) => {
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
+    setLogo(file);
     reader.onloadend = () => {
       setImage(reader.result);
     };
@@ -23,7 +47,7 @@ function AdminRegistrationForm() {
 
   return (
    <>
-    <div className="pb-8">
+    <div className="pb-10">
     <p className="text-4xl font-bold inline border-b-4 border-gray-500">
       Registrar Totem
     </p>
@@ -31,12 +55,12 @@ function AdminRegistrationForm() {
     <form>
       <div>
         <div>
-          <label className="text-gray-700 dark:text-gray-200" htmlFor="firstName">
+          <label className="text-gray-900 dark:text-gray-900" htmlFor="Name">
             Nombre
           </label>
           <input
             type="text"
-            id="firstName"
+            id="Name"
             value={name}
             onChange={(event) => setName(event.target.value)}
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -79,7 +103,7 @@ function AdminRegistrationForm() {
             {image && (
               <div className="ml-4">
                 <img
-                  className="h-50 object-cover"
+                  className="h-50 rounded-md object-cover"
                   src={image}
                   alt="Previsualización de la imagen"
                 />
@@ -91,7 +115,8 @@ function AdminRegistrationForm() {
         
 
         <div className="flex justify-end mt-6">
-          <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+          <button className="px-10 py-5 leading-5 text-white transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-600" 
+          type="submit" onClick={handleSubmit}>
             Registrar
           </button>
         </div>
