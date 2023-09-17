@@ -4,6 +4,7 @@ import CryptoJS from "crypto-js";
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import connectionString from "../../components/connections/connection";
 //npm install crypto-js
 //npm install --save sweetalert2 sweetalert2-react-content
 //npm install @emailjs/browser --save
@@ -15,7 +16,7 @@ const ForgotPassword = () => {
   const ResetPass = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("https://localhost:7264/api/Usuarios");
+    const response = await fetch(connectionString + "/Usuarios");
     const data = await response.json();
     const matchingUser = data.find((user) => user.email === email);
     var userId;
@@ -28,7 +29,7 @@ const ForgotPassword = () => {
       matchingUser.Password = hashPass;
       try {
         const response = await fetch(
-            `https://localhost:7264/api/Usuarios/${userId}`,
+          connectionString + `/Usuarios/${userId}`,
             {
               method: "PUT",
               headers: {

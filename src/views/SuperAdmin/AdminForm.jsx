@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import CryptoJS from "crypto-js";
 import emailjs from "@emailjs/browser";
+import connectionString from "../../components/connections/connection";
 //npm install crypto-js
 //npm install --save sweetalert2 sweetalert2-react-content
 //npm install @emailjs/browser --save
@@ -25,7 +26,7 @@ function AdminRegistrationForm() {
     event.preventDefault();
     // Verificar si el correo electrónico ya está registrado
     const response = await fetch(
-      "https://totemapi.azurewebsites.net/api/Usuarios"
+      connectionString + "/Usuarios"
     );
     const data = await response.json();
     const emailAlreadyExists = data.some(
@@ -51,7 +52,7 @@ function AdminRegistrationForm() {
         });
       } else {
         // Enviar solicitud POST a la API
-        await fetch("https://totemapi.azurewebsites.net/api/Usuarios", {
+        await fetch(connectionString + "/Usuarios", {
           method: "POST",
           body: JSON.stringify(nuevoUsuario),
           headers: {
@@ -115,7 +116,7 @@ function AdminRegistrationForm() {
 
   const loadUsuarios = () => {
     axios
-      .get("https://totemapi.azurewebsites.net/api/Usuarios")
+      .get(connectionString + "/Usuarios")
       .then((response) => {
         setUsuariosT(response.data);
       })
@@ -139,7 +140,7 @@ function AdminRegistrationForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          fetch(`https://totemapi.azurewebsites.net/api/Usuarios/${id}`, {
+          fetch(connectionString + `/Usuarios/${id}`, {
             method: "DELETE",
             //body: JSON.stringify(id),
             headers: {

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { updateUser } from "../../components/redux/userSlice";
 import { Navigate, useNavigate } from "react-router-dom";
+import connectionString from "../../components/connections/connection";
 
 function UserUpdateForm() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function UserUpdateForm() {
     e.preventDefault();
     confirm("entro");
     const response = await fetch(
-      `https:/totemapi.azurewebsites.net/api/Usuarios/${user.idUsuario}`
+      connectionString + `/Usuarios/${user.idUsuario}`
     );
     const dataUser = await response.json();
 
@@ -48,7 +49,7 @@ function UserUpdateForm() {
     dataUser.apellido = apellido;
     dataUser.password = hashPass;
     dataUser.institucion = institucion;
-    fetch(`https:/totemapi.azurewebsites.net/api/Usuarios/${user.idUsuario}`, {
+    fetch(connectionString + `/Usuarios/${user.idUsuario}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

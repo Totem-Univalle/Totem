@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addTotem } from "../../components/redux/totemSlice";
+import connectionString from "../../components/connections/connection";
 
 const TotemEdit = () => {
   const dispatch = useDispatch();
@@ -18,14 +19,14 @@ const TotemEdit = () => {
 
   useEffect(() => {
     if (totemState.idTotem === null) {
-      fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id.slice(1)}`)
+      fetch(connectionString + `/Totems/${id.slice(1)}`)
         .then((response) => response.json())
         .then((data) => {
           const totem = {
             idTotem: data.idTotem,
             nombre: data.nombre,
             numeroPlantilla: data.numeroPlantilla,
-            urlLogo: data.urlLogo,
+            urlLogo: 'data:image/png;base64,' + data.urlLogo,
           };
           dispatch(addTotem(totem));
           setTotem(totem);
@@ -79,7 +80,7 @@ const TotemEdit = () => {
       return;
     }
     axios
-      .put(`https://localhost:7264/api/Totems/${id.slice(1)}`, totem, {
+      .put(connectionString + `/Totems/${id.slice(1)}`, totem, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${"sdfsf"}`, // Agregar el token al encabezado

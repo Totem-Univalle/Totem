@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import connectionString from "../../components/connections/connection";
 import 'tailwindcss/tailwind.css';
 
 export default function SelectTotem() {
@@ -15,7 +15,7 @@ export default function SelectTotem() {
       const fetchData = async () => {
         try {
           const response = await axios.get(
-            `https://totemapi.azurewebsites.net/api/TotemU/${userL.idUsuario}`
+            connectionString + `/TotemU/${userL.idUsuario}`
           );
           setTotems(response.data);
         } catch (error) {
@@ -33,7 +33,7 @@ export default function SelectTotem() {
             <a href={`TotemEdit/:${idTotem}`} onClick={() => localStorage.setItem("totem", JSON.stringify({ idTotem, urlLogo }))}>
               <div className="card hover:bg-gray-200 shadow-2xl rounded-lg transition delay-300 duration-300 ease-in-out cursor-pointer p-4">
                 <div className="flex flex-row justify-center">
-                  <img className="w-40 image rounded-lg" src={urlLogo} />
+                  <img className="w-40 image rounded-lg" src={'data:image/png;base64,' + urlLogo} />
 
                   <div className="mx-6 content px-5 flex flex-col justify-center">
                     <div className="text-xl">{userL.institucion}</div>

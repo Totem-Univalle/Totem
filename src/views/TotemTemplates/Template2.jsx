@@ -16,6 +16,7 @@ import Timer from "../Timer/Timer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import connectionString from "../../components/connections/connection";
 
 export function Template2() {
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ export function Template2() {
     if (id != null && keysb != null) {
       keysb = keysb.toLowerCase();
       fetch(
-        "https://totemapi.azurewebsites.net/api/TotemLocacion?id=" +
+        connectionString + "/TotemLocacion?id=" +
           id +
           "&keys=" +
           keysb
@@ -164,7 +165,7 @@ export function Template2() {
               src={
                 data == null
                   ? "https://img.freepik.com/vector-premium/navegacion-aplicacion-hay-destino-llegar-al-mapa-gps-destino_403715-36.jpg"
-                  : data["urlMapa"]
+                  : 'data:image/png;base64,' + data["urlMapa"]
               }
               alt="image"
               className="h-full w-full object-cover"

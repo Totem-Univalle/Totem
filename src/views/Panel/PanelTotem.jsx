@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useNavigate, useLocation } from "react-router-dom";
 import "tailwindcss/tailwind.css";
+import connectionString from "../../components/connections/connection";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addTotem, deleteTotem } from "../../components/redux/totemSlice";
@@ -24,7 +25,7 @@ const PanelTotem = () => {
 
   const handleDelete = (id) => {
     console.log(id);
-    fetch(`https://totemapi.azurewebsites.net/api/Totems/${id}`, {
+    fetch(connectionString + `/Totems/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
@@ -41,7 +42,7 @@ const PanelTotem = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https:/totemapi.azurewebsites.net/api/TotemU/${user.idUsuario}`
+          connectionString + `/TotemU/${user.idUsuario}`
         );
         setTotems(response.data);
       } catch (error) {
@@ -53,7 +54,7 @@ const PanelTotem = () => {
   }, [location]);
 
   function chargeDataTotem(id) {
-    fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id}`)
+    fetch(connectionString + `/Totems/${id}`)
       .then((response) => response.json())
       .then((data) => {
         const totem = {
@@ -117,7 +118,7 @@ const PanelTotem = () => {
               >
                 <div className="card hover:bg-gray-200 shadow-2xl rounded-lg transition delay-300 duration-300 ease-in-out cursor-pointer p-4">
                   <div className="flex flex-row justify-center">
-                    <img className="w-40 image rounded-lg" src={urlLogo} />
+                    <img className="w-40 image rounded-lg" src={'data:image/png;base64,' + urlLogo} />
 
                     <div className="mx-6 content px-5 flex flex-col justify-center">
                       <div className="text-xl">{user.institucion}</div>

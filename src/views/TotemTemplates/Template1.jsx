@@ -6,6 +6,7 @@ import Timer from "../Timer/Timer";
 import { useNavigate,useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import connectionString from "../../components/connections/connection";
 
 export function Template1() {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ export function Template1() {
     let isMounted = true;
     if(id !=null && keysb != null){
       keysb = keysb.toLowerCase();
-      fetch('https://totemapi.azurewebsites.net/api/TotemLocacion?id=' + id +'&keys='+keysb).then(response => response.json())
+      fetch(connectionString + '/TotemLocacion?id=' + id +'&keys='+keysb).then(response => response.json())
       .then(result => {
         if(isMounted){
           console.log(result);
@@ -151,7 +152,7 @@ export function Template1() {
                       <figure className="relative h-full w-full">
                         <img
                           className="h-full w-full rounded-xl"
-                          src={data == null?"https://img.freepik.com/vector-premium/navegacion-aplicacion-hay-destino-llegar-al-mapa-gps-destino_403715-36.jpg":data['urlMapa']}
+                          src={data == null?"https://img.freepik.com/vector-premium/navegacion-aplicacion-hay-destino-llegar-al-mapa-gps-destino_403715-36.jpg":'data:image/png;base64,' + data['urlMapa']}
                           alt="nature image"
                         />
                         <figcaption className="absolute -top-12 left-2/4 flex w-[calc(100%-4rem)] -translate-x-2/4 justify-between rounded-xl border border-white bg-white/75 px-6 py-4 shadow-lg shadow-black/5 saturate-200">

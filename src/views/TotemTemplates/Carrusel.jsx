@@ -28,7 +28,7 @@ function Carrusel({ images }) {
                   : "carrusel_card"
               }
             >
-              <img className="card_image" src={image.image} alt="" />
+              <img className="card_image" src={'data:image/png;base64,' + image.image} alt="" />
             </div>
           );
         })}

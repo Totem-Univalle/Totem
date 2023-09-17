@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { addPublicidades } from "../../components/redux/publicidadSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import connectionString from "../../components/connections/connection";
 
 export function AdvertisingDisplay() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export function AdvertisingDisplay() {
 
   useEffect(() => {
     if(publicidadesState.publicidades === null){
-      fetch(`https://totemapi.azurewebsites.net/api/PublicidadT/${id.slice(1)}`)
+      fetch(connectionString + `/PublicidadT/${id.slice(1)}`)
       .then((response) => response.json())
       .then((data) => {
         dispatch(addPublicidades(data));
@@ -42,7 +43,7 @@ export function AdvertisingDisplay() {
           {publicidades.map((publicidad) => (
             <Advertising
               date={publicidad.fechaFin}
-              src={publicidad.urlPublicidad}
+              src={'data:image/png;base64,' + publicidad.urlPublicidad}
               idPublicidad={publicidad.idPublicidad}
             />
           ))}

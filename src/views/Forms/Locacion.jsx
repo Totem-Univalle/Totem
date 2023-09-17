@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { deleteLocations } from "../../components/redux/locationSlice";
+import connectionString from "../../components/connections/connection";
 
 function Locacion() {
   const MySwal = withReactContent(Swal);
@@ -37,7 +38,7 @@ function Locacion() {
       }
     
       try {
-        const response = await axios.post('https://totemapi.azurewebsites.net/api/Locaciones', formData, {
+        const response = await axios.post(connectionString + '/Locaciones', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

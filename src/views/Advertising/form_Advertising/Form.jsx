@@ -5,6 +5,7 @@ import "./formStyle.css";
 import { deletePublicidades } from "../../../components/redux/publicidadSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import connectionString from "../../../components/connections/connection";
 
 const Form = ({CloseMod}) => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Form = ({CloseMod}) => {
     formData.append("Imagen", files);
     formData.append("IdTotem", totemId);
     axios
-      .post("https://totemapi.azurewebsites.net/api/Publicidad", formData)
+      .post( connectionString +"/Publicidad", formData)
       .then((response) => {
         console.log(response);
         dispatch(deletePublicidades());
