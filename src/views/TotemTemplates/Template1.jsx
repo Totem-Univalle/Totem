@@ -123,7 +123,7 @@ export function Template1() {
               </div>
               <div className="my-8 text-center">
                 <Typography variant="h2" color="blue-gray" className="mb-2">
-                  {data == null?'Undefined':data['nombre']}
+                  {data == null?'Bienvenidos':data['nombre']}
                 </Typography>
                 
                 <div className=" flex items-center justify-center gap-2">

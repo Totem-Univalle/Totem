@@ -24,7 +24,12 @@ function AdminRegistrationForm() {
     console.log(logo);
     console.log(template);
     axios
-      .post(connectionString + "/Totems", formData)
+      .post(connectionString + "/Totems", formData, {
+        headers: {
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Origin':'http://localhost:5173'
+        }
+      })
       .then((response) => {
         console.log(response);
         //setMensajeConfirmacion("El totem se ha creado correctamente.");
