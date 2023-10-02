@@ -9,25 +9,21 @@ const TotemEdit = () => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
+  const [viewLogo, setViewLogo] = useState([]);
+  const [logo, setLogo] = useState(null);
   const [mensajeConfirmacion, setMensajeConfirmacion] = useState(null);
   const totemState = useSelector((state) => state.totem);
-  const [totem, setTotem] = useState({
+  let [totem, setTotem] = useState({
     nombre: totemState.nombre || "",
     numeroPlantilla: totemState.numeroPlantilla || "",
-    urlLogo: totemState.urlLogo || "",
   });
 
-  const convertBase64ToFile = function (image) {
-    const byteString = atob(image.split(',')[1]);
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i += 1) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    const newBlob = new Blob([ab], {
-      type: 'image/jpeg',
-    });
-    return newBlob;
+  const handleImageChange = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    setLogo(file);
+    reader.readAsDataURL(file);
   };
 
   useEffect(() => {
@@ -41,6 +37,7 @@ const TotemEdit = () => {
             numeroPlantilla: data.numeroPlantilla,
             urlLogo: 'data:image/png;base64,' + data.urlLogo,
           };
+          setViewLogo(totem.urlLogo);
           dispatch(addTotem(totem));
           setTotem(totem);
         })
@@ -61,19 +58,22 @@ const TotemEdit = () => {
           ? event.target.files[0]
           : event.target.value,
     }));
+    
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
     const reader = new FileReader();
-
+    setLogo(file);
     reader.onloadend = () => {
       setTotem((prevState) => ({
         ...prevState,
         urlLogo: reader.result,
       }));
+      
     };
+
 
     if (file) {
       reader.readAsDataURL(file);
@@ -82,16 +82,19 @@ const TotemEdit = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let { nombre, numeroPlantilla, imagen } = totem;
-    const formData = new FormData();
+    let { nombre, numeroPlantilla } = totem;
+    
     if (!nombre || !numeroPlantilla) {
       alert("Por favor llene todos los campos del formulario.");
       return;
     }
+    console.log(logo);
+    const formData = new FormData();
     formData.append("nombre",nombre);
     formData.append("numeroPlantilla",numeroPlantilla);
-    console.log(imagen)
-    console.log(formData);
+    if(logo!=null){
+      formData.append("imagen",logo);
+    }
     axios
       .put(connectionString + `/Totems/${id.slice(1)}`, formData)
       .then((response) => {
@@ -161,8 +164,8 @@ const TotemEdit = () => {
             type="file"
             id="urlLogo"
             name="urlLogo"
-            src={totem.urlLogo}
-            onChange={handleChange}
+            src={viewLogo}
+            onChange={handleFileChange}
             className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>

@@ -51,10 +51,10 @@ const Sidebar = () => {
       path: `/Publicidad/:${totem === null ? 0 : totem.idTotem}`,
     },
     {
-      name: "Logos",
+      name: "Editar Información",
       current: false,
       icon: HiTemplate,
-      path: "/Logos",
+      path: `/TotemEdit/:${totem === null ? 0 : totem.idTotem}`,
     },
     /* {
       name: "Admins",
