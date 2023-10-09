@@ -12,6 +12,7 @@ import { addUser } from "../../components/redux/userSlice";
 import { deleteTotem } from "../../components/redux/totemSlice";
 import { deleteLocations } from "../../components/redux/locationSlice";
 import { deletePublicidades } from "../../components/redux/publicidadSlice";
+import useSpeechRecognition from "../../components/hooks/useSpeechRecognition";
 //
 
 export default function Login() {
@@ -23,10 +24,17 @@ export default function Login() {
   dispatch(deletePublicidades());
 
   const [formData, setFormData] = useState({ email: "", password: "" });
-
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
+
+  const {
+    text,
+    startListening,
+    stopListening,
+    isListening,
+    hasRecognitionSupport,
+  } = useSpeechRecognition();
 
   const handleSubmit = async (event, submitType) => {
     var user = null;
@@ -125,6 +133,15 @@ export default function Login() {
           <form className="mt-5 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
+              <>
+                <div>
+                  <button onClick={startListening}>Start Listening</button>
+                  <button onClick={stopListening}>Stop Listening</button>
+                  {isListening? <div>Listening</div> :<div>{text}</div> }
+                  <a href="https://wa.me/59172984846" className="btn">Go to help</a>
+                  {text}
+                </div>
+              </>
               <div>
                 <label htmlFor="email-address" className="sr-only">
                   Email address
