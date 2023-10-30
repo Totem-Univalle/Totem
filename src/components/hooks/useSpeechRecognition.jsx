@@ -7,7 +7,7 @@ if("webkitSpeechRecognition" in window){
     recognition.lang = "es-ES"
 }
 
-const useSpeechRecognition = () => {
+const useSpeechRecognition = (Search) => {
     const[text, setText] = useState("");
     const[isListening, setIsListening] = useState(false);
 
@@ -16,9 +16,10 @@ const useSpeechRecognition = () => {
 
         recognition.onresult = (event = SpeechRecognitionEvent)=>{
             console.log("onresult event:", event);
-            setText(event.result[0][0].transcript)
+            setText(event.results[0][0].transcript)
             recognition.stop();
-            setIsListening(false)
+            setIsListening(false);
+            Search(event.results[0][0].transcript);
         }
     }, [])
 
