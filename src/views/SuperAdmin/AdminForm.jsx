@@ -68,10 +68,10 @@ function AdminRegistrationForm() {
 
         emailjs
           .send(
-            "service_3rtigfq",
-            "template_qsoq91x",
+            "service_5pvdx8k",
+            "template_i2a10th",
             templateParams,
-            "k1svNk93T8_CwWCl2"
+            "MJXFKLxwKRB54fkot"
           )
           .then(
             (result) => {

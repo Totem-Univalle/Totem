@@ -46,10 +46,10 @@ const ForgotPassword = () => {
             };
             emailjs
               .send(
-                "service_3rtigfq",
-                "template_br2sgmh",
+                "service_5pvdx8k",
+                "template_umjsi0m",
                 templateParams,
-                "k1svNk93T8_CwWCl2"
+                "MJXFKLxwKRB54fkot"
               )
               .then(
                 (result) => {

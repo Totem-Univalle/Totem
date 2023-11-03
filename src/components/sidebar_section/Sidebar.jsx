@@ -180,7 +180,7 @@ const Sidebar = () => {
 
           <h3>Help Center</h3>
           <p>Please contact us</p>
-          <a href="wa.me/59172984846" className="btn">Go to help</a>
+          <a href="https://wa.me/59172984846" className="btn">Go to help</a>
         </div>
       </div>
     </div>

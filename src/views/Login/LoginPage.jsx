@@ -133,15 +133,6 @@ export default function Login() {
           <form className="mt-5 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
-              <>
-                <div>
-                  <button onClick={startListening}>Start Listening</button>
-                  <button onClick={stopListening}>Stop Listening</button>
-                  {isListening? <div>Listening</div> :<div>{text}</div> }
-                  <a href="https://wa.me/59172984846" className="btn">Go to help</a>
-                  {text}
-                </div>
-              </>
               <div>
                 <label htmlFor="email-address" className="sr-only">
                   Email address

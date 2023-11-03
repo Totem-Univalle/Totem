@@ -103,7 +103,7 @@ export function Template1() {
           if (isMounted) {
             console.log(result);
             setData(result);
-            images = result.urlCarruselImagenes.split(',');
+            images = result.urlCarruselImagenes.split('|');
             let imagesF = images.map(image => Object.assign({ image }))
             setImages(imagesF);
             console.log(imagesFinal);
