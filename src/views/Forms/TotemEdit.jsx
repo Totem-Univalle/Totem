@@ -3,30 +3,41 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addTotem } from "../../components/redux/totemSlice";
+import connectionString from "../../components/connections/connection";
 
 const TotemEdit = () => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
+  const [viewLogo, setViewLogo] = useState([]);
+  const [logo, setLogo] = useState(null);
   const [mensajeConfirmacion, setMensajeConfirmacion] = useState(null);
   const totemState = useSelector((state) => state.totem);
-  const [totem, setTotem] = useState({
+  let [totem, setTotem] = useState({
     nombre: totemState.nombre || "",
     numeroPlantilla: totemState.numeroPlantilla || "",
-    urlLogo: totemState.urlLogo || "",
   });
+
+  const handleImageChange = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    setLogo(file);
+    reader.readAsDataURL(file);
+  };
 
   useEffect(() => {
     if (totemState.idTotem === null) {
-      fetch(`https:/totemapi.azurewebsites.net/api/Totems/${id.slice(1)}`)
+      fetch(connectionString + `/Totems/${id.slice(1)}`)
         .then((response) => response.json())
         .then((data) => {
           const totem = {
             idTotem: data.idTotem,
             nombre: data.nombre,
             numeroPlantilla: data.numeroPlantilla,
-            urlLogo: data.urlLogo,
+            urlLogo: 'data:image/png;base64,' + data.urlLogo,
           };
+          setViewLogo(totem.urlLogo);
           dispatch(addTotem(totem));
           setTotem(totem);
         })
@@ -47,19 +58,22 @@ const TotemEdit = () => {
           ? event.target.files[0]
           : event.target.value,
     }));
+    
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
     const reader = new FileReader();
-
+    setLogo(file);
     reader.onloadend = () => {
       setTotem((prevState) => ({
         ...prevState,
         urlLogo: reader.result,
       }));
+      
     };
+
 
     if (file) {
       reader.readAsDataURL(file);
@@ -68,23 +82,21 @@ const TotemEdit = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { nombre, numeroPlantilla, imagen } = totem;
-
+    let { nombre, numeroPlantilla } = totem;
+    
     if (!nombre || !numeroPlantilla) {
       alert("Por favor llene todos los campos del formulario.");
       return;
     }
-    if (!imagen) {
-      alert("Por favor seleccione una imagen.");
-      return;
+    console.log(logo);
+    const formData = new FormData();
+    formData.append("nombre",nombre);
+    formData.append("numeroPlantilla",numeroPlantilla);
+    if(logo!=null){
+      formData.append("imagen",logo);
     }
     axios
-      .put(`https://localhost:7264/api/Totems/${id.slice(1)}`, totem, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${"sdfsf"}`, // Agregar el token al encabezado
-        },
-      })
+      .put(connectionString + `/Totems/${id.slice(1)}`, formData)
       .then((response) => {
         console.log(response);
         setMensajeConfirmacion("El totem se ha modificado correctamente.");
@@ -100,11 +112,14 @@ const TotemEdit = () => {
   };
   return (
     <div className="flex items-center justify-center">
-      <img src="https://scontent.fcbb1-1.fna.fbcdn.net/v/t39.30808-6/334716564_231810255934195_1860557887752353475_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_ohc=egh29c1C7H4AX8gKsEb&_nc_ht=scontent.fcbb1-1.fna&oh=00_AfByQqD2ILMdRHA7t3_yq5BZ52m06RLWix0NiW0KGfZRBA&oe=647D91D6"></img>
-      {/* <div className="container mx-auto">
+      <img className="h-60 w-60 rounded-full" src={totem.urlLogo} width="100" height="100" ></img>
+      <div className="container mx-auto">
+      </div>
+      <div className="container mx-auto">
       <p className="text-4xl font-bold inline border-b-4 border-gray-500">
         Editar Totem
       </p>
+      
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
@@ -149,8 +164,8 @@ const TotemEdit = () => {
             type="file"
             id="urlLogo"
             name="urlLogo"
-            src={totem.urlLogo}
-            onChange={handleChange}
+            src={viewLogo}
+            onChange={handleFileChange}
             className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -166,7 +181,7 @@ const TotemEdit = () => {
           {mensajeConfirmacion && <p>{mensajeConfirmacion}</p>}
         </div>
       </form>
-    </div> */}
+    </div>
     </div>
   );
 };

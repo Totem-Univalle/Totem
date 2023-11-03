@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { deleteLocations } from "../../components/redux/locationSlice";
 import { useSelector, useDispatch } from "react-redux";
+import connectionString from "../../components/connections/connection";
 
 function EditLocacion() {
   const MySwal = withReactContent(Swal);
@@ -24,7 +25,7 @@ function EditLocacion() {
 
   useEffect(() => {
     axios
-      .get(`https://totemapi.azurewebsites.net/api/Locaciones/${id}`)
+      .get(connectionString + `/Locaciones/${id}`)
       .then((response) => {
         setLocacion(response.data);
       })
@@ -87,7 +88,7 @@ function EditLocacion() {
       formData.append("imagenMapa", locacion.imagenMapa);
     }
     axios
-      .put(`https://totemapi.azurewebsites.net/api/Locaciones/${id}`, formData)
+      .put(connectionString + `/Locaciones/${id}`, formData)
       .then((response) => {
         MySwal.fire({
           icon: "success",

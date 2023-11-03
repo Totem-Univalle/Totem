@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addLocations } from "../../components/redux/locationSlice";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import connectionString from "../../components/connections/connection";
 
 function LocacionesTable() {
   const MySwal = withReactContent(Swal);
@@ -17,7 +18,7 @@ function LocacionesTable() {
 
   useEffect(() => {
     if (stateLocations.locaciones === null) {
-      fetch("https://totemapi.azurewebsites.net/api/Locaciones")
+      fetch(connectionString + "/Locaciones")
         .then((response) => response.json())
         .then((data) => {
           const locationf = data.filter(
@@ -44,7 +45,7 @@ function LocacionesTable() {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`https://totemapi.azurewebsites.net/api/Locaciones/${id}`)
+            .delete(connectionString + `/Locaciones/${id}`)
             .then((response) => {
               setLocaciones(
                 locaciones.filter((locacion) => locacion.idLocacion !== id)
@@ -118,7 +119,7 @@ function LocacionesTable() {
                 <div className="flex items-center justify-center">
                   <img
                     className="w-24 h-24 rounded-full cursor-pointer"
-                    src={locacion.urlMapa}
+                    src={'data:image/png;base64,' + locacion.urlMapa}
                     alt="Client"
                     onClick={() => window.open(locacion.urlMapa, "_blank")}
                   />
@@ -132,7 +133,7 @@ function LocacionesTable() {
                     .map((item, index) => (
                       <img
                         class="w-24 h-24 rounded-full border-gray-200 border -m-1 transform hover:scale-125"
-                        src={item}
+                        src={'data:image/png;base64,' + item}
                         onClick={() => window.open(item, "_blank")}
                       />
                     ))}

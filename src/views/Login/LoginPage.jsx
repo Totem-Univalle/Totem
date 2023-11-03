@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
+import connectionString from "../../components/connections/connection";
 
 //Redux
 
@@ -11,6 +12,7 @@ import { addUser } from "../../components/redux/userSlice";
 import { deleteTotem } from "../../components/redux/totemSlice";
 import { deleteLocations } from "../../components/redux/locationSlice";
 import { deletePublicidades } from "../../components/redux/publicidadSlice";
+import useSpeechRecognition from "../../components/hooks/useSpeechRecognition";
 //
 
 export default function Login() {
@@ -22,13 +24,17 @@ export default function Login() {
   dispatch(deletePublicidades());
 
   const [formData, setFormData] = useState({ email: "", password: "" });
-
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
-    formData.password = CryptoJS.MD5(formData.password).toString(
-      CryptoJS.enc.Hex
-    );
   };
+
+  const {
+    text,
+    startListening,
+    stopListening,
+    isListening,
+    hasRecognitionSupport,
+  } = useSpeechRecognition();
 
   const handleSubmit = async (event, submitType) => {
     var user = null;
@@ -36,10 +42,12 @@ export default function Login() {
     formData.password = CryptoJS.MD5(formData.password).toString(
       CryptoJS.enc.Hex
     );
+    console.log(formData.password)
     //console.log(formData);
     if (submitType === "admin") {
+      console.log(formData)
       try {
-        fetch("https:/totemapi.azurewebsites.net/api/Usuarios/Authenticate", {
+        fetch(connectionString + "/Usuarios/Authenticate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -72,7 +80,7 @@ export default function Login() {
       }
     } else if (submitType === "totem") {
       try {
-        fetch("https://totemapi.azurewebsites.net/api/Usuarios/LoginTotem", {
+        fetch(connectionString + "/Usuarios/LoginTotem", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),

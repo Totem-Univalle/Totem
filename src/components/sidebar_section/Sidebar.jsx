@@ -51,10 +51,10 @@ const Sidebar = () => {
       path: `/Publicidad/:${totem === null ? 0 : totem.idTotem}`,
     },
     {
-      name: "Logos",
+      name: "Editar Información",
       current: false,
       icon: HiTemplate,
-      path: "/Logos",
+      path: `/TotemEdit/:${totem === null ? 0 : totem.idTotem}`,
     },
     /* {
       name: "Admins",
@@ -106,7 +106,7 @@ const Sidebar = () => {
               src={
                 totem === null
                   ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                  : totem.urlLogo
+                  :  totem.urlLogo
               }
               alt=""
             />
@@ -132,19 +132,6 @@ const Sidebar = () => {
                   )}
                 >
                   Perfil
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/Logo"
-                  className={classNames(
-                    active ? "bg-gray-100" : "",
-                    "block px-4 py-2 text-sm text-gray-700"
-                  )}
-                >
-                  Logo
                 </a>
               )}
             </Menu.Item>
@@ -193,7 +180,7 @@ const Sidebar = () => {
 
           <h3>Help Center</h3>
           <p>Please contact us</p>
-          <button className="btn">Go to help</button>
+          <a href="https://wa.me/59172984846" className="btn">Go to help</a>
         </div>
       </div>
     </div>

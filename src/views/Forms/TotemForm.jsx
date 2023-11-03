@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import "./TotemForm.css";
+import connectionString from "../../components/connections/connection";
 
 function AdminRegistrationForm() {
   const [name, setName] = useState("");
@@ -23,7 +24,12 @@ function AdminRegistrationForm() {
     console.log(logo);
     console.log(template);
     axios
-      .post("https://totemapi.azurewebsites.net/api/Totems", formData)
+      .post(connectionString + "/Totems", formData, {
+        headers: {
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Origin':'http://localhost:5173'
+        }
+      })
       .then((response) => {
         console.log(response);
         //setMensajeConfirmacion("El totem se ha creado correctamente.");

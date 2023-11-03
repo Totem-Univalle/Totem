@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { editTemplate } from "../../components/redux/totemSlice";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import connectionString from "../../components/connections/connection";
 
 const SeleccionPlantilla = () => {
   const MySwal = withReactContent(Swal);
@@ -19,7 +20,7 @@ const SeleccionPlantilla = () => {
 
   const handleSelectPlantilla = (plantillaId) => {
     fetch(
-      `https://totemapi.azurewebsites.net/api/Totems/${totemState.idTotem}/numero-plantilla`,
+      connectionString + `/Totems/${totemState.idTotem}/numero-plantilla`,
       {
         method: "PUT",
         headers: {

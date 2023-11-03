@@ -5,6 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import { deletePublicidades } from "../../components/redux/publicidadSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import connectionString from "../../components/connections/connection";
 
 export function Advertising(props) {
   const MySwal = withReactContent(Swal);
@@ -14,7 +15,7 @@ export function Advertising(props) {
   let endDate = new Date(props.date)
 
   const handleDelete = (id) => {
-    axios.delete(`https://totemapi.azurewebsites.net/api/Publicidad/${id}`)
+    axios.delete(connectionString + `/Publicidad/${id}`)
       .then((response) => {
         dispatch(deletePublicidades());
         MySwal.fire("Eliminado", "Su publicidad ha sido eliminada correctamente", "success");
@@ -55,7 +56,7 @@ export function Advertising(props) {
       </div>
       <div class="flex items-center justify-center max-h-96 overflow-hidden">
         <div class="aspect-w-1 aspect-h-1">
-          <img className="object-contain" src={props.src} alt="" />
+          <img className="object-contain" src={'data:image/png;base64,' + props.src} alt="" />
         </div>
       </div>
       <div className="flex p-4 justify-between"></div>

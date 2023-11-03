@@ -3,6 +3,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import connectionString from "../../components/connections/connection";
 
 function TotemAdvertising() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -11,7 +12,7 @@ function TotemAdvertising() {
 
   const loadPublicidades = () => {
     axios
-      .get(`https://totemapi.azurewebsites.net/api/PublicidadT/${totem.idTotem}`)
+      .get(connectionString + `/PublicidadT/${totem.idTotem}`)
       .then((response) => {
         setPublicidades(response.data);
       })
@@ -51,7 +52,7 @@ function TotemAdvertising() {
         {publicidades.map((publicidad, index) => (
           <div key={index}>
             <img
-              src={publicidad.urlPublicidad}
+              src={'data:image/png;base64,' + publicidad.urlPublicidad}
               alt="Publicidad"
               className="h-screen"
             />
