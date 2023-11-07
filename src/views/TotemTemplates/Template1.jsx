@@ -131,7 +131,7 @@ export function Template1() {
       <section className="relative block h-[50vh] bg-gray-900">
         <div className="bg-profile-background absolute top-0 h-full w-full ">
           <figure className="relative h-full w-full">
-            <Carrusel className="carrusel" images={imagesFinal == null ? pics : imagesFinal} />
+            <Carrusel className="carrusel" images={imagesFinal == null ? pics : imagesFinal} data = {imagesFinal} />
             <figcaption className="absolute left-5 top-5 flex w-1/8  justify-items-center rounded-xl  bg-white/75 p-2 shadow-lg shadow-black/5 saturate-200">
               <p className="text-gray-700">{currentTime}</p>
             </figcaption>

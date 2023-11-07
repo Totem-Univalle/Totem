@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "./Carrusel.css";
 
 
-function Carrusel({ images }) {
+function Carrusel({ images, data }) {
     const [current, setCurrent] = useState(0);
     
     useEffect(()=>{
@@ -28,7 +28,10 @@ function Carrusel({ images }) {
                   : "carrusel_card"
               }
             >
-              <img className="card_image" src={'data:image/png;base64,' + image.image} alt="" />
+              {
+                data != null?<img className="card_image" src={'data:image/png;base64,' + image.image} alt="" />:<img className="card_image" src={'' + image.image} alt="" />
+              }
+              
             </div>
           );
         })}

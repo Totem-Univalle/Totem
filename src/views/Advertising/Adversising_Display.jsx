@@ -43,7 +43,7 @@ export function AdvertisingDisplay() {
           {publicidades.map((publicidad) => (
             <Advertising
               date={publicidad.fechaFin}
-              src={'data:image/png;base64,' + publicidad.urlPublicidad}
+              src={'' + publicidad.urlPublicidad}
               idPublicidad={publicidad.idPublicidad}
             />
           ))}

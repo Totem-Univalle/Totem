@@ -14,9 +14,10 @@ import Carrusel from "./Carrusel";
 import { pics } from "./Data";
 import Timer from "../Timer/Timer";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import connectionString from "../../components/connections/connection";
+import useSpeechRecognition from "../../components/hooks/useSpeechRecognition";
 
 export function Template2() {
   const navigate = useNavigate();
@@ -51,41 +52,78 @@ export function Template2() {
       ? null
       : searchParams.get("keys").toString();
 
-  function handleSubmit(event) {
-    if (event.key == "Enter") {
-      event.preventDefault();
-      SetTime(300);
+  const {
+    text,
+    startListening,
+    stopListening,
+    hasRecognitionSupport,
+    isListening
+  } = useSpeechRecognition(handleSubmit);
 
-      let keys = browse.split(" ");
-      SetBrowse("");
-      setImages(null);
-      images = null;
-      let reject = ["la", "las", "el", "los"];
-      let filteredKeys = keys;
+  function handleSubmit(textToSearch) {
+    SetTime(3000);
+    let keys = textToSearch.split(" ");
+    SetBrowse("");
+    setImages(null);
+    setData(null);
+    keysb = "";
+    images = null;
+    let reject = ["la", "las", "el", "los"];
+    let signs = ['?', '¿', '.', ','];
+    let filteredKeys = keys.filter(item => !reject.includes(item));
 
-      for (let i = 0; i < reject.length; i++) {
-        filteredKeys = filteredKeys.filter((item) => item !== reject[i]);
-      }
+    // Eliminar símbolos de las palabras en filteredKeys
+    filteredKeys = filteredKeys.map(item => item.replace(new RegExp(`[${signs.join('')}]`, 'g'), ''));
 
-      navigate("/Template?keys=" + filteredKeys.toString());
-    }
+    navigate('/Template?keys=' + filteredKeys.toString());
   }
+
+  const handleEnterPress = (event) => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
+    setIsListening(!isListening);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        window.speechSynthesis.cancel();
+        handleEnterPress();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+  const speakDescription = useCallback(() => {
+    if (data && data.descripcion) {
+      const valueSpeech = new SpeechSynthesisUtterance(data.descripcion);
+      window.speechSynthesis.speak(valueSpeech);
+    }
+  }, [data]);
+
   useEffect(() => {
     let isMounted = true;
     if (id != null && keysb != null) {
       keysb = keysb.toLowerCase();
       fetch(
         connectionString + "/TotemLocacion?id=" +
-          id +
-          "&keys=" +
-          keysb
+        id +
+        "&keys=" +
+        keysb
       )
         .then((response) => response.json())
         .then((result) => {
           if (isMounted) {
             console.log(result);
             setData(result);
-            images = result.urlCarruselImagenes.split(",");
+            images = result.urlCarruselImagenes.split("|");
             let imagesF = images.map((image) => Object.assign({ image }));
             setImages(imagesF);
             console.log(imagesFinal);
@@ -94,8 +132,13 @@ export function Template2() {
     }
     return () => {
       isMounted = false;
+      window.speechSynthesis.cancel();
     };
-  }, [location]);
+  }, [location]); // El array de dependencias vacío asegura que este efecto se ejecute solo una vez
+
+  useEffect(() => {
+    speakDescription(); // Llama a la función de síntesis de voz después de cada renderización si los datos cambian
+  }, [location, speakDescription]);
   if (!data && keysb != null) {
     return <div>Loading....</div>;
   }
@@ -125,7 +168,7 @@ export function Template2() {
             color="white"
             className="mb-6 font-medium leading-[1.5]"
           >
-            {data == null ? "Undefined" : data["nombre"]}
+            {data == null ? "Bienvenido" : data["nombre"]}
           </Typography>
           <Typography variant="h5" className="mb-4 text-gray-400">
             Cochabamba, Bolivia
@@ -135,15 +178,10 @@ export function Template2() {
               for="default-input"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             ></label>
-            <input
-              type="text"
-              id="default-input"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Buscar..."
-              value={browse}
-              onChange={(event) => SetBrowse(event.target.value)}
-              onKeyUp={handleSubmit}
-            />
+            <input type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Buscar..."
+                    value={text}
+                    onChange={(event) => SetBrowse(event.target.value)} />
           </div>
           <Avatar
             size="xl"
@@ -181,7 +219,7 @@ export function Template2() {
               <LightBulbIcon className="h-6 w-6 text-white" />
             </IconButton>
             <Typography variant="h4" color="blue-gray" className="mb-2 mt-5">
-              Información sobre {data == null ? "Undefined" : data["nombre"]}
+              Información sobre {data == null ? "Cochabamba" : data["nombre"]}
             </Typography>
             <Typography color="gray" className="mb-8 font-normal">
               {data == null ? "Bienvenido a los Totems" : data["descripcion"]}
@@ -193,7 +231,7 @@ export function Template2() {
         <div className="flex flex-row flex-wrap items-center justify-center gap-x-12 gap-y-6 text-center text-white md:justify-between">
           <div className="flex-column flex">
             <Typography color="white" className="mb-8 ml-2 font-normal">
-            {currentTime}
+              {currentTime}
             </Typography>
           </div>
           <div className="flex-column flex">

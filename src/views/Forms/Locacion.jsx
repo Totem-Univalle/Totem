@@ -67,12 +67,13 @@ function Locacion() {
       </a> */}
       <label>
         Nombre:
-        <input type="text" value={nombre} onChange={(event) => setNombre(event.target.value)} />
+        <input required type="text" value={nombre} onChange={(event) => setNombre(event.target.value)} />
       </label>
       <br />
       <label htmlFor="descripcion" className="block mb-2">
         Descripción:
         <textarea
+          required
           id="descripcion"
           name="descripcion"
           value={descripcion}
@@ -85,12 +86,13 @@ function Locacion() {
       <br />
       <label>
         Palabras clave:
-        <input type="text" value={keywords} onChange={(event) => setKeywords(event.target.value)} />
+        <input required type="text" value={keywords} onChange={(event) => setKeywords(event.target.value)} />
       </label>
       <br />
       <label htmlFor="imagenMapa" className="block mb-2">
         Imagen de mapa:
         <input
+          required
           type="file"
           id="imagenMapa"
           name="imagenMapa"
@@ -104,6 +106,7 @@ function Locacion() {
       <label>
         Imágenes de carrusel:
         <input
+          required
           type="file"
           className="border border-gray-300 rounded-lg p-2"
           multiple

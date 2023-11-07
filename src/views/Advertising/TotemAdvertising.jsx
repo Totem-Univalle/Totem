@@ -4,11 +4,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import connectionString from "../../components/connections/connection";
-
+import { useNavigate } from 'react-router-dom';
 function TotemAdvertising() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [publicidades, setPublicidades] = useState([]);
   const totem = useSelector((state) => state.totem);
+  const navigate = useNavigate();
 
   const loadPublicidades = () => {
     axios
@@ -35,6 +36,19 @@ function TotemAdvertising() {
     };
   }, [publicidades.length]);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        navigate("/Template");
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <Carousel

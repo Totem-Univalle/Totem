@@ -129,11 +129,11 @@ function LocacionesTable() {
               <td class="py-3 px-6 text-center">
                 <div class="flex items-center justify-center">
                   {locacion.urlCarruselImagenes
-                    .split(",")
+                    .split("|")
                     .map((item, index) => (
                       <img
                         class="w-24 h-24 rounded-full border-gray-200 border -m-1 transform hover:scale-125"
-                        src={'data:image/png;base64,' + item}
+                        src={'data:image/jpeg;base64,' + item}
                         onClick={() => window.open(item, "_blank")}
                       />
                     ))}
