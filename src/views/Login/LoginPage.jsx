@@ -73,6 +73,8 @@ export default function Login() {
           })
           .catch((error) => {
             setMensajeConfirmacion("Email o contraseña incorrectos");
+            formData.password = "";
+            formData.email="";
             console.error(error);
           });
       } catch (error) {
@@ -102,6 +104,8 @@ export default function Login() {
           })
           .catch((error) => {
             setMensajeConfirmacion("Email o contraseña incorrectos");
+            formData.password = "";
+            formData.email="";
           });
       } catch (error) {
         console.error(error);

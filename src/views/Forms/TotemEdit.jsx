@@ -147,6 +147,8 @@ const TotemEdit = () => {
           <input
             type="number"
             id="numeroPlantilla"
+            max={2}
+            min={1}
             name="numeroPlantilla"
             value={totem.numeroPlantilla}
             onChange={handleChange}
@@ -164,6 +166,7 @@ const TotemEdit = () => {
             type="file"
             id="urlLogo"
             name="urlLogo"
+            accept="image/*"
             src={viewLogo}
             onChange={handleFileChange}
             className="border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

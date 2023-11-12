@@ -81,7 +81,7 @@ const PanelTotem = () => {
             Nuevo Totem
           </button>
         )}
-        <div className="flex flex-col sm:flex-row justify-end gap-4">
+        <div className="flex flex-wrap justify-center items-center">
           {totems.map(({ idTotem, urlLogo, nombre }) => (
             <div>
               {user.loginMode === "admin" && (

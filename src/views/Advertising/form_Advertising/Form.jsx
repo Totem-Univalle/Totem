@@ -7,14 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import connectionString from "../../../components/connections/connection";
 
-const Form = ({CloseMod}) => {
+const Form = ({ CloseMod }) => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [files, setFiles] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
   const totem = useSelector((state) => state.totem);
-  
+
   const dropzoneRef = useRef();
   const inputRef = useRef(null);
   const totemId = totem.idTotem;
@@ -31,7 +31,7 @@ const Form = ({CloseMod}) => {
     formData.append("Imagen", files);
     formData.append("IdTotem", totemId);
     axios
-      .post( connectionString +"/Publicidad", formData)
+      .post(connectionString + "/Publicidad", formData)
       .then((response) => {
         console.log(response);
         dispatch(deletePublicidades());
@@ -76,6 +76,7 @@ const Form = ({CloseMod}) => {
         <br />
         <DatePicker
           selected={startDate}
+          minDate={new Date()}
           onChange={(date) => setStartDate(date)}
         />
       </div>
@@ -83,7 +84,10 @@ const Form = ({CloseMod}) => {
       <div className="form-group">
         <label>Fecha de fin</label>
         <br />
-        <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+        <DatePicker
+          selected={endDate}
+          minDate={new Date()}
+          onChange={(date) => setEndDate(date)} />
       </div>
 
       <div className="form-group">
@@ -108,7 +112,7 @@ const Form = ({CloseMod}) => {
             <img
               src={imagePreview}
               alt="Preview"
-              style={{ width: "250px", height: "400px"}}
+              style={{ width: "250px", height: "400px" }}
             />
           ) : (
             <p>Arrastra una imagen aquí o haz clic para seleccionar una.</p>
