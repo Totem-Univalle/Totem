@@ -122,7 +122,8 @@ function AdminRegistrationForm() {
 
         <div className="flex justify-end mt-6">
           <button className="px-10 py-5 leading-5 text-white transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-600" 
-          type="submit" onClick={handleSubmit}>
+          type="submit" onClick={handleSubmit}
+          name="btnTotem">
             Registrar
           </button>
         </div>

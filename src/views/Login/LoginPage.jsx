@@ -184,6 +184,7 @@ export default function Login() {
               <button
                 type="submit"
                 onClick={(event) => handleSubmit(event, "admin")}
+                name="adminButton"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -198,6 +199,7 @@ export default function Login() {
               <button
                 type="submit"
                 onClick={(event) => handleSubmit(event, "totem")}
+                name="totemButton"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">

@@ -74,6 +74,7 @@ const PanelTotem = () => {
         {user.loginMode === "admin" && (
           <button
             className="text-white text-xm font-bold rounded-lg bg-green-500 inline-block mt-4 mb-10 ml-10 mr-auto py-5 px-10 cursor-pointer"
+            name="btnNew"
             onClick={() => {
               navigate(`/TotemNew`);
             }}

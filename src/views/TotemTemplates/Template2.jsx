@@ -159,6 +159,7 @@ export function Template2() {
           <Carrusel
             className="carrusel"
             images={imagesFinal == null ? pics : imagesFinal}
+            data = {imagesFinal}
           />
           <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
         </CardHeader>
